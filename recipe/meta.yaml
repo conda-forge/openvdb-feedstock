@@ -21,13 +21,16 @@ requirements:
     - make  # [unix]
 
   host:
-    - boost-cpp
     - blosc
-    - zlib
-    - tbb-devel
+    - boost
+    - boost-cpp
     - jemalloc
+    - python
+    - tbb-devel
+    - zlib
 
   run:
+    - boost
     - boost-cpp
 
 test:
@@ -43,6 +46,8 @@ test:
     - if not exist %PREFIX%\include\opendb\opendvdb.h exit 1  # [win]
     - if not exist %PREFIX%\lib\cmake\FindOpenVDB.cmake exit 1  # [win]
     - vdb_print --help
+  imports:
+    - pyopenvdb
 
 about:
   home: https://github.com/AcademySoftwareFoundation/openvdb
