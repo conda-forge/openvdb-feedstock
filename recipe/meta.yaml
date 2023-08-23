@@ -49,6 +49,7 @@ test:
     - if not exist %PREFIX%\include\opendb\opendvdb.h exit 1  # [win]
     - if not exist %PREFIX%\lib\cmake\FindOpenVDB.cmake exit 1  # [win]
     - vdb_print --help
+    - python -c "import pyopenvdb; import numpy; pyopenvdb.FloatGrid.from_numpy_array(numpy.random.rand(10, 10, 10))"
   imports:
     - pyopenvdb
 
