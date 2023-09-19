@@ -32,10 +32,8 @@ requirements:
     - zlib 
 
   run:
-    - {{ pin_compatible('numpy') }}
     - boost
-    - boost-cpp 
-    - python
+    - boost-cpp
 
 test:
   commands:
