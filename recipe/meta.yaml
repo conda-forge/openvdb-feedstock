@@ -32,11 +32,11 @@ requirements:
 
   run:
     - boost
-    - boost-cpp 
+    - boost-cpp
+    - python
 
 test:
   requires:
-    - python
     - numpy
 
   commands:
