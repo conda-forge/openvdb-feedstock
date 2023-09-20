@@ -7,9 +7,11 @@ package:
 source:
   url: https://github.com/AcademySoftwareFoundation/openvdb/archive/refs/tags/v{{ version }}.tar.gz
   sha256: 887a3391fbd96b20c77914f4fb3ab4b33d26e5fc479aa036d395def5523c622f
+  patches:
+    - 0001-Use-Python-SOABI-in-pyopenvdb-dll-filename.patch
 
 build:
-  number: 4
+  number: 5
   skip: true  # [osx]
   run_exports:
     - {{ pin_subpackage('openvdb', max_pin='x') }}
