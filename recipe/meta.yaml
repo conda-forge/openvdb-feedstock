@@ -21,7 +21,6 @@ requirements:
     - {{ compiler('cxx') }}
     - cmake
     - make  # [unix]
-    - ninja  # [win]
 
   host:
     - blosc  
@@ -34,12 +33,14 @@ requirements:
     - zlib 
 
   run:
-    - {{ pin_compatible('numpy') }}
     - boost
-    - boost-cpp 
+    - boost-cpp
     - python
 
 test:
+  requires:
+    - numpy
+
   commands:
     - test -f ${PREFIX}/bin/vdb_print  # [unix]
     - test -f ${PREFIX}/include/openvdb/openvdb.h  # [unix]
