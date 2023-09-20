@@ -17,10 +17,10 @@ index 82d7c5ac..cc810cbb 100644
  set_target_properties(pyopenvdb PROPERTIES PREFIX "")  # no 'lib' prefix
  if(UNIX)
 -  set_target_properties(pyopenvdb PROPERTIES SUFFIX ".so") # must be .so (not .dylib)
-+  set_target_properties(pyopenvdb PROPERTIES SUFFIX "${Python_SOABI}.so") # must be .so (not .dylib)
++  set_target_properties(pyopenvdb PROPERTIES SUFFIX ".${Python_SOABI}.so") # must be .so (not .dylib)
  elseif(WIN32)
 -  set_target_properties(pyopenvdb PROPERTIES SUFFIX ".pyd") # .pyd on windows
-+  set_target_properties(pyopenvdb PROPERTIES SUFFIX "${Python_SOABI}.pyd") # .pyd on windows
++  set_target_properties(pyopenvdb PROPERTIES SUFFIX ".${Python_SOABI}.pyd") # .pyd on windows
  endif()
  
  target_link_libraries(pyopenvdb PUBLIC
