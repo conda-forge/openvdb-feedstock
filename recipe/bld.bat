@@ -3,6 +3,9 @@
 mkdir build
 cd build
 
+:: see https://github.com/boostorg/system/issues/32#issuecomment-462912013
+set "CXXFLAGS=%CXXFLAGS% /DHAVE_SNPRINTF=1"
+
 cmake %CMAKE_ARGS% -LAH                                           ^
       -G "Visual Studio 17 2022"                                  ^
       -DCMAKE_INSTALL_PREFIX:PATH="%LIBRARY_PREFIX%"              ^

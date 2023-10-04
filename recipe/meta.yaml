@@ -11,7 +11,7 @@ source:
     - 0001-Use-Python-SOABI-in-pyopenvdb-dll-filename.patch
 
 build:
-  number: 6
+  number: 7
   skip: true  # [osx]
   run_exports:
     - {{ pin_subpackage('openvdb', max_pin='x') }}
@@ -24,8 +24,8 @@ requirements:
 
   host:
     - blosc  
-    - boost
-    - boost-cpp  
+    - libboost-python-devel
+    - libboost-devel  
     - jemalloc  # [unix]
     - numpy
     - python
@@ -33,8 +33,6 @@ requirements:
     - zlib 
 
   run:
-    - boost
-    - boost-cpp
     - python
 
 test:
