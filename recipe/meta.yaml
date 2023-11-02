@@ -47,13 +47,12 @@ test:
     - test -f ${PREFIX}/bin/vdb_print  # [unix]
     - test -f ${PREFIX}/include/openvdb/openvdb.h  # [unix]
     - test -f ${PREFIX}/lib/cmake/OpenVDB/FindOpenVDB.cmake  # [unix]
-    - test -f ${PREFIX}/lib/libopenvdb${SHLIB_EXT}.{{ version }}  # [unix]
     - test -f ${PREFIX}/lib/libopenvdb${SHLIB_EXT}  # [unix]
     - if not exist %LIBRARY_BIN%\openvdb%SHLIB_EXT% exit 1  # [win]
     - if not exist %LIBRARY_BIN%\vdb_print.exe exit 1  # [win]
-    - if not exist %LIBRARY_LIB%\openvdb.lib exit 1  # [win]
     - if not exist %LIBRARY_INC%\openvdb\openvdb.h exit 1  # [win]
     - if not exist %LIBRARY_LIB%\cmake\OpenVDB\FindOpenVDB.cmake exit 1  # [win]
+    - if not exist %LIBRARY_LIB%\openvdb.lib exit 1  # [win]
     - vdb_print --help
     # test numpy support
     - python -c "import pyopenvdb; import numpy; grid = pyopenvdb.FloatGrid(); grid.copyFromArray(numpy.random.rand(200, 200, 200))"
