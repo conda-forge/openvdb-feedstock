@@ -7,6 +7,9 @@ package:
 source:
   url: https://github.com/AcademySoftwareFoundation/openvdb/archive/refs/tags/v{{ version }}.tar.gz
   sha256: 6314ff1db057ea90050763e7b7d7ed86d8224fcd42a82cdbb9c515e001b96c74
+  patches:
+    - 0001-Lower-minimum-python-version-match-conda-forge-3.9.1.patch
+    - 0002-redefine-ssize_t-to-Py_ssize_t-to-fix-error-on-Win-a.patch
 
 build:
   number: 0

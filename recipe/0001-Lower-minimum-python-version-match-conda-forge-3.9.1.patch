@@ -1,0 +1,26 @@
+From 4d8095a1a374a3d544bb519e77d932fa436dae1c Mon Sep 17 00:00:00 2001
+From: Anton Tetov <anton@tetov.se>
+Date: Thu, 2 Nov 2023 13:51:41 +0100
+Subject: [PATCH] Lower minimum python version match conda-forge (3.9.1 ->
+ 3.8.18)
+
+---
+ cmake/config/OpenVDBVersions.cmake | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/cmake/config/OpenVDBVersions.cmake b/cmake/config/OpenVDBVersions.cmake
+index f956b8fd..6bc7e9b3 100644
+--- a/cmake/config/OpenVDBVersions.cmake
++++ b/cmake/config/OpenVDBVersions.cmake
+@@ -50,7 +50,7 @@ if(NOT DISABLE_DEPENDENCY_VERSION_CHECKS)
+   set(MINIMUM_BLOSC_VERSION 1.17.0)
+   set(MINIMUM_GLFW_VERSION 3.1)
+ 
+-  set(MINIMUM_PYTHON_VERSION 3.9.1)
++  set(MINIMUM_PYTHON_VERSION 3.8.18)
+   set(MINIMUM_NUMPY_VERSION 1.20.0)
+ 
+   set(MINIMUM_GOOGLETEST_VERSION 1.10)
+-- 
+2.41.0
+

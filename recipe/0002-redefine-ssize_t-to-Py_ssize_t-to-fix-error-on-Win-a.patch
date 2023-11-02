@@ -1,0 +1,25 @@
+From 1e01aec207a9ddf8977ae64e7c679fbdda42edfa Mon Sep 17 00:00:00 2001
+From: Anton Tetov <anton@tetov.se>
+Date: Thu, 2 Nov 2023 14:51:41 +0100
+Subject: [PATCH] redefine ssize_t to Py_ssize_t to fix error on Win and py>39
+
+---
+ openvdb/openvdb/python/pyGrid.h | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/openvdb/openvdb/python/pyGrid.h b/openvdb/openvdb/python/pyGrid.h
+index 9249eaf6..edd7a3fa 100644
+--- a/openvdb/openvdb/python/pyGrid.h
++++ b/openvdb/openvdb/python/pyGrid.h
+@@ -46,6 +46,8 @@ namespace py = pybind11;
+ #endif
+ 
+ using namespace openvdb::OPENVDB_VERSION_NAME;
++#include <Python.h>
++using ssize_t = Py_ssize_t;
+ 
+ #ifdef __clang__
+ #pragma clang diagnostic pop
+-- 
+2.41.0
+
