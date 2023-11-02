@@ -12,7 +12,6 @@ source:
 
 build:
   number: 0
-  skip: true  # [osx]
   skip: true  # [py<39]
   run_exports:
     - {{ pin_subpackage('openvdb', max_pin='x') }}
