@@ -7,8 +7,6 @@ package:
 source:
   url: https://github.com/AcademySoftwareFoundation/openvdb/archive/refs/tags/v{{ version }}.tar.gz
   sha256: 6314ff1db057ea90050763e7b7d7ed86d8224fcd42a82cdbb9c515e001b96c74
-  patches:
-    - 0001-Use-Python-SOABI-in-pyopenvdb-dll-filename.patch
 
 build:
   number: 0
@@ -21,16 +19,17 @@ requirements:
     - {{ compiler('cxx') }}
     - cmake
     - make  # [unix]
+    - pybind11                               # [build_platform != target_platform]
 
   host:
     - blosc
-    - libboost-python-devel
     - libboost-devel
     - jemalloc  # [unix]
     - numpy
     - python
     - tbb-devel
     - zlib
+    - pybind11
 
   run:
     - python
