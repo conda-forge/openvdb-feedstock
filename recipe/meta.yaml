@@ -1,4 +1,4 @@
-{% set version = "10.0.1" %}
+{% set version = "11.0.0" %}
 
 package:
   name: openvdb
@@ -6,13 +6,14 @@ package:
 
 source:
   url: https://github.com/AcademySoftwareFoundation/openvdb/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: 887a3391fbd96b20c77914f4fb3ab4b33d26e5fc479aa036d395def5523c622f
+  sha256: 6314ff1db057ea90050763e7b7d7ed86d8224fcd42a82cdbb9c515e001b96c74
   patches:
-    - 0001-Use-Python-SOABI-in-pyopenvdb-dll-filename.patch
+    - 0001-Replace-ssize_t-with-Py_ssize_t.patch
 
 build:
-  number: 8
+  number: 0
   skip: true  # [osx]
+  skip: true  # [py<39]
   run_exports:
     - {{ pin_subpackage('openvdb', max_pin='x') }}
 
@@ -21,16 +22,17 @@ requirements:
     - {{ compiler('cxx') }}
     - cmake
     - make  # [unix]
+    - pybind11                               # [build_platform != target_platform]
 
   host:
-    - blosc  
-    - libboost-python-devel
-    - libboost-devel  
+    - blosc
+    - libboost-devel
     - jemalloc  # [unix]
     - numpy
     - python
     - tbb-devel
-    - zlib 
+    - zlib
+    - pybind11
 
   run:
     - python
