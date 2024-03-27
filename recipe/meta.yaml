@@ -11,7 +11,7 @@ source:
     - 0001-Replace-ssize_t-with-Py_ssize_t.patch
 
 build:
-  number: 1
+  number: 2
   skip: true  # [py<39]
   run_exports:
     - {{ pin_subpackage('openvdb', max_pin='x') }}
@@ -19,6 +19,7 @@ build:
 requirements:
   build:
     - {{ compiler('cxx') }}
+    - {{ stdlib("c") }}
     - cmake
     - make  # [unix]
     - pybind11                               # [build_platform != target_platform]
@@ -37,7 +38,6 @@ requirements:
 
   run:
     - python
-    - __osx >={{ MACOSX_DEPLOYMENT_TARGET|default("10.9") }}  # [osx and x86_64]
 
 test:
   requires:
