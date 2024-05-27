@@ -11,7 +11,7 @@ source:
     - 0001-Replace-ssize_t-with-Py_ssize_t.patch
 
 build:
-  number: 2
+  number: 3
   skip: true  # [py<39]
   run_exports:
     - {{ pin_subpackage('openvdb', max_pin='x') }}
