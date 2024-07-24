@@ -7,6 +7,7 @@ cd build
 
 cmake ${CMAKE_ARGS} -LAH                \
       -G "Unix Makefiles"               \
+      -DOPENVDB_BUILD_BINARIES=ON       \
       -DOPENVDB_BUILD_PYTHON_MODULE=ON  \
       -DOPENVDB_CORE_SHARED=ON          \
       -DOPENVDB_CORE_STATIC=OFF         \
