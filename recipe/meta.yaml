@@ -34,6 +34,7 @@ requirements:
 
   host:
     - blosc
+    - freeglut  # [linux]
     - glew  # [win]
     - glfw
     - jemalloc  # [linux]
