@@ -34,15 +34,15 @@ requirements:
 
   host:
     - blosc
-    - libboost-devel
-    - jemalloc  # [unix]
     - glew  # [win]
     - glfw
+    - jemalloc  # [linux]
+    - libboost-devel
     - numpy
+    - pybind11
     - python
     - tbb-devel
     - zlib
-    - pybind11
 
   run:
     - python
