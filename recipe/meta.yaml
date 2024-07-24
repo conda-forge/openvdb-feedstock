@@ -30,6 +30,8 @@ requirements:
     - blosc
     - libboost-devel
     - jemalloc  # [unix]
+    - glew  # [win]
+    - glfw
     - numpy
     - python
     - tbb-devel
