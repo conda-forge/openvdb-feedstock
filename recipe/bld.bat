@@ -12,6 +12,7 @@ cmake %CMAKE_ARGS% -LAH                                           ^
       -DCMAKE_PREFIX_PATH:PATH="%LIBRARY_PREFIX%"                 ^
       -DOPENVDB_BUILD_BINARIES=ON                                 ^
       -DOPENVDB_BUILD_PYTHON_MODULE=ON                            ^
+      -OPENVDB_BUILD_VDB_VIEW=ON
       -DOPENVDB_CORE_SHARED=ON                                    ^
       -DOPENVDB_CORE_STATIC=OFF                                   ^
       -DPYOPENVDB_INSTALL_DIRECTORY="%PREFIX%/Lib/site-packages"  ^
