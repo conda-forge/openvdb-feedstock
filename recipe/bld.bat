@@ -10,7 +10,9 @@ cmake %CMAKE_ARGS% -LAH                                           ^
       -G "Visual Studio 17 2022"                                  ^
       -DCMAKE_INSTALL_PREFIX:PATH="%LIBRARY_PREFIX%"              ^
       -DCMAKE_PREFIX_PATH:PATH="%LIBRARY_PREFIX%"                 ^
+      -DOPENVDB_BUILD_BINARIES=ON                                 ^
       -DOPENVDB_BUILD_PYTHON_MODULE=ON                            ^
+      -DOPENVDB_BUILD_VDB_VIEW=ON                                 ^
       -DOPENVDB_CORE_SHARED=ON                                    ^
       -DOPENVDB_CORE_STATIC=OFF                                   ^
       -DPYOPENVDB_INSTALL_DIRECTORY="%PREFIX%/Lib/site-packages"  ^

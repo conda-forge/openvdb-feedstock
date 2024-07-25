@@ -1,11 +1,13 @@
 c_stdlib:
 - vs
 channel_sources:
-- conda-forge/label/numpy_rc,conda-forge
+- conda-forge
 channel_targets:
 - conda-forge main
 cxx_compiler:
 - vs2019
+glew:
+- '2.1'
 libboost_devel:
 - '1.84'
 numpy:
@@ -24,4 +26,4 @@ zip_keys:
 - - python
   - numpy
 zlib:
-- '1.2'
+- '1'

@@ -11,7 +11,7 @@ source:
     - 0001-Replace-ssize_t-with-Py_ssize_t.patch
 
 build:
-  number: 3
+  number: 4
   skip: true  # [py<39]
   run_exports:
     - {{ pin_subpackage('openvdb', max_pin='x') }}
@@ -20,6 +20,13 @@ requirements:
   build:
     - {{ compiler('cxx') }}
     - {{ stdlib("c") }}
+    - {{ cdt('mesa-libgl-devel') }}  # [linux]
+    - {{ cdt('mesa-libglu-devel') }}  # [linux]
+    - {{ cdt('mesa-dri-drivers') }}  # [linux]
+    - {{ cdt('libselinux') }}  # [linux]
+    - {{ cdt('libxdamage') }}  # [linux]
+    - {{ cdt('libxxf86vm') }}  # [linux]
+    - {{ cdt('libxext') }}     # [linux]
     - cmake
     - make  # [unix]
     - pybind11                               # [build_platform != target_platform]
@@ -28,13 +35,15 @@ requirements:
 
   host:
     - blosc
+    - glew  # [win]
+    - glfw
+    - jemalloc  # [linux]
     - libboost-devel
-    - jemalloc  # [unix]
     - numpy
+    - pybind11
     - python
     - tbb-devel
     - zlib
-    - pybind11
 
   run:
     - python
@@ -45,11 +54,13 @@ test:
 
   commands:
     - test -f ${PREFIX}/bin/vdb_print  # [unix]
+    - test -f ${PREFIX}/bin/vdb_view   # [unix]
     - test -f ${PREFIX}/include/openvdb/openvdb.h  # [unix]
     - test -f ${PREFIX}/lib/cmake/OpenVDB/FindOpenVDB.cmake  # [unix]
     - test -f ${PREFIX}/lib/libopenvdb${SHLIB_EXT}  # [unix]
     - if not exist %LIBRARY_BIN%\openvdb%SHLIB_EXT% exit 1  # [win]
     - if not exist %LIBRARY_BIN%\vdb_print.exe exit 1  # [win]
+    - if not exist %LIBRARY_BIN%\vdb_view.exe exit 1  # [win]
     - if not exist %LIBRARY_INC%\openvdb\openvdb.h exit 1  # [win]
     - if not exist %LIBRARY_LIB%\cmake\OpenVDB\FindOpenVDB.cmake exit 1  # [win]
     - if not exist %LIBRARY_LIB%\openvdb.lib exit 1  # [win]
