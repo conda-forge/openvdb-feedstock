@@ -1,4 +1,4 @@
-{% set version = "11.0.0" %}
+{% set version = "12.0.0" %}
 
 package:
   name: openvdb
@@ -6,12 +6,12 @@ package:
 
 source:
   url: https://github.com/AcademySoftwareFoundation/openvdb/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: 6314ff1db057ea90050763e7b7d7ed86d8224fcd42a82cdbb9c515e001b96c74
+  sha256: 23ceb5b18a851f45af118f718a9dd3001efaee364e3f623c37ffbdad03b8905f
   patches:
     - 0001-Replace-ssize_t-with-Py_ssize_t.patch
 
 build:
-  number: 6
+  number: 0
   skip: true  # [py<39]
   run_exports:
     - {{ pin_subpackage('openvdb', max_pin='x') }}
