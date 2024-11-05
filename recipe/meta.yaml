@@ -27,7 +27,7 @@ requirements:
     - {{ cdt('libxext') }}     # [linux]
     - cmake
     - make  # [unix]
-    - nanobind                               # [build_platform != target_platform]
+    - nanobind
     - python                                 # [build_platform != target_platform]
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
 
