@@ -28,7 +28,7 @@ requirements:
     - cmake
     - make  # [unix]
     - nanobind
-    - python                                 # [build_platform != target_platform]
+    - python
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
 
   host:
@@ -64,9 +64,9 @@ test:
     - if not exist %LIBRARY_LIB%\openvdb.lib exit 1  # [win]
     - vdb_print --help
     # test numpy support
-    - python -c "import pyopenvdb; import numpy; grid = pyopenvdb.FloatGrid(); grid.copyFromArray(numpy.random.rand(200, 200, 200))"
+    - python -c "import openvdb; import numpy; grid = openvdb.FloatGrid(); grid.copyFromArray(numpy.random.rand(200, 200, 200))"
   imports:
-    - pyopenvdb
+    - openvdb
 
 about:
   home: https://github.com/AcademySoftwareFoundation/openvdb
