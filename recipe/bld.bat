@@ -10,7 +10,7 @@ cmake %CMAKE_ARGS% -LAH                                           ^
       -G "Visual Studio 17 2022"                                  ^
       -DCMAKE_INSTALL_PREFIX:PATH="%LIBRARY_PREFIX%"              ^
       -DCMAKE_PREFIX_PATH:PATH="%LIBRARY_PREFIX%"                 ^
-      -Dnanobind_DIR="%SP_DIR/nanobind/cmake"                     ^
+      -Dnanobind_DIR="%SP_DIR%/nanobind/cmake"                    ^
       -DOPENVDB_BUILD_BINARIES=ON                                 ^
       -DOPENVDB_BUILD_PYTHON_MODULE=ON                            ^
       -DOPENVDB_BUILD_VDB_VIEW=ON                                 ^
