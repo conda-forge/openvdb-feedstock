@@ -26,10 +26,12 @@ requirements:
     - {{ cdt('libxxf86vm') }}  # [linux]
     - {{ cdt('libxext') }}     # [linux]
     - cmake
+    - libboost-devel
     - make  # [unix]
     - nanobind
     - python
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
+    - numpy                                  # [build_platform != target_platform]
 
   host:
     - blosc
@@ -44,7 +46,7 @@ requirements:
     - zlib
 
   run:
-    - python
+    - {{ pin_compatible('numpy') }}
 
 test:
   requires:
