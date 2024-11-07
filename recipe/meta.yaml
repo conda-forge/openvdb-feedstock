@@ -39,7 +39,7 @@ requirements:
     - glfw
     - jemalloc  # [linux]
     - libboost-devel
-    - numpy >= 1.23.0
+    - numpy >=1.23.0
     - nanobind
     - python
     - tbb-devel
