@@ -13,7 +13,6 @@ Development: https://github.com/AcademySoftwareFoundation/openvdb
 
 OpenVDB is an open source C++ library comprising a novel hierarchical data structure and a large suite of tools for the efficient storage and manipulation of sparse volumetric data discretized on three-dimensional grids. It was developed by DreamWorks Animation for use in volumetric applications typically encountered in feature film production.
 
-
 Current build status
 ====================
 
