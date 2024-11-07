@@ -39,7 +39,7 @@ requirements:
     - glfw
     - jemalloc  # [linux]
     - libboost-devel
-    - numpy
+    - numpy >= 1.23.0
     - nanobind
     - python
     - tbb-devel
@@ -47,6 +47,7 @@ requirements:
 
   run:
     - {{ pin_compatible('numpy') }}
+    - python
 
 test:
   requires:
