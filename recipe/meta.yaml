@@ -1,4 +1,4 @@
-{% set version = "11.0.0" %}
+{% set version = "12.0.0" %}
 
 package:
   name: openvdb
@@ -6,13 +6,11 @@ package:
 
 source:
   url: https://github.com/AcademySoftwareFoundation/openvdb/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: 6314ff1db057ea90050763e7b7d7ed86d8224fcd42a82cdbb9c515e001b96c74
-  patches:
-    - 0001-Replace-ssize_t-with-Py_ssize_t.patch
+  sha256: 23ceb5b18a851f45af118f718a9dd3001efaee364e3f623c37ffbdad03b8905f
 
 build:
-  number: 6
-  skip: true  # [py<39]
+  number: 0
+  skip: true  # [py<310]
   run_exports:
     - {{ pin_subpackage('openvdb', max_pin='x') }}
 
@@ -28,10 +26,12 @@ requirements:
     - {{ cdt('libxxf86vm') }}  # [linux]
     - {{ cdt('libxext') }}     # [linux]
     - cmake
+    - libboost-devel
     - make  # [unix]
-    - pybind11                               # [build_platform != target_platform]
-    - python                                 # [build_platform != target_platform]
+    - nanobind
+    - python
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
+    - numpy                                  # [build_platform != target_platform]
 
   host:
     - blosc
@@ -39,13 +39,14 @@ requirements:
     - glfw
     - jemalloc  # [linux]
     - libboost-devel
-    - numpy
-    - pybind11
+    - numpy >=1.23.0
+    - nanobind
     - python
     - tbb-devel
     - zlib
 
   run:
+    - {{ pin_compatible('numpy') }}
     - python
 
 test:
@@ -66,9 +67,9 @@ test:
     - if not exist %LIBRARY_LIB%\openvdb.lib exit 1  # [win]
     - vdb_print --help
     # test numpy support
-    - python -c "import pyopenvdb; import numpy; grid = pyopenvdb.FloatGrid(); grid.copyFromArray(numpy.random.rand(200, 200, 200))"
+    - python -c "import openvdb; import numpy; grid = openvdb.FloatGrid(); grid.copyFromArray(numpy.random.rand(200, 200, 200))"
   imports:
-    - pyopenvdb
+    - openvdb
 
 about:
   home: https://github.com/AcademySoftwareFoundation/openvdb
