@@ -1,0 +1,106 @@
+schema_version: 1
+
+context:
+  version: 12.0.0
+
+package:
+  name: openvdb
+  version: ${{ version }}
+
+source:
+  url: https://github.com/AcademySoftwareFoundation/openvdb/archive/refs/tags/v${{ version }}.tar.gz
+  sha256: 23ceb5b18a851f45af118f718a9dd3001efaee364e3f623c37ffbdad03b8905f
+
+build:
+  number: 0
+  skip: match(python, "<3.10")
+
+requirements:
+  build:
+    - ${{ compiler('cxx') }}
+    - ${{ stdlib("c") }}
+    - cmake
+    - libboost-devel
+    - nanobind
+    - python
+    - if: linux
+      then: 
+        - ${{ cdt('mesa-libgl-devel') }}
+        - ${{ cdt('mesa-libglu-devel') }}
+        - ${{ cdt('mesa-dri-drivers') }}
+        - ${{ cdt('libselinux') }}
+        - ${{ cdt('libxdamage') }}
+        - ${{ cdt('libxxf86vm') }}
+        - ${{ cdt('libxext') }}
+    - if: unix
+      then: make
+    - if: build_platform != target_platform
+      then: 
+        - cross-python_${{ target_platform }}
+        - numpy
+  host:
+    - blosc
+    - glfw
+    - libboost-devel
+    - numpy >=1.23.0
+    - nanobind
+    - python
+    - tbb-devel
+    - zlib
+    - if: win
+      then: glew
+    - if: linux
+      then: jemalloc
+  run:
+    - ${{ pin_compatible('numpy') }}
+    - python
+  run_exports:
+    - ${{ pin_subpackage('openvdb', upper_bound='x') }}
+
+tests:
+  - python:
+      imports:
+        - openvdb
+      pip_check: false
+  - requirements:
+      run:
+        - numpy
+    script:
+      - if: unix
+        then:
+          - test -f ${PREFIX}/bin/vdb_print
+          - test -f ${PREFIX}/bin/vdb_view
+          - test -f ${PREFIX}/include/openvdb/openvdb.h
+          - test -f ${PREFIX}/lib/cmake/OpenVDB/FindOpenVDB.cmake
+          - test -f ${PREFIX}/lib/libopenvdb${SHLIB_EXT}
+      - if: win
+        then:
+          - if not exist %LIBRARY_BIN%\openvdb%SHLIB_EXT% exit 1
+          - if not exist %LIBRARY_BIN%\vdb_print.exe exit 1
+          - if not exist %LIBRARY_BIN%\vdb_view.exe exit 1
+          - if not exist %LIBRARY_INC%\openvdb\openvdb.h exit 1
+          - if not exist %LIBRARY_LIB%\cmake\OpenVDB\FindOpenVDB.cmake exit 1
+          - if not exist %LIBRARY_LIB%\openvdb.lib exit 1
+      - vdb_print --help
+      - >
+          python -c "import openvdb; 
+                     import numpy; 
+                     grid = openvdb.FloatGrid(); 
+                     grid.copyFromArray(numpy.random.rand(200, 200, 200))"
+
+
+
+about:
+  summary: OpenVDB - Sparse volume data structure and tools
+  description: |
+    OpenVDB is an open source C++ library comprising a novel hierarchical data structure and a large suite of tools for the efficient storage and manipulation of sparse volumetric data discretized on three-dimensional grids. It was developed by DreamWorks Animation for use in volumetric applications typically encountered in feature film production.
+  license: MPL-2.0
+  license_file: LICENSE
+  homepage: https://github.com/AcademySoftwareFoundation/openvdb
+  repository: https://github.com/AcademySoftwareFoundation/openvdb
+
+extra:
+  recipe-maintainers:
+    - versatran01
+    - tetov
+
