@@ -5,7 +5,7 @@ Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/openvdb-feedsto
 
 Home: https://github.com/AcademySoftwareFoundation/openvdb
 
-Package license: MPL-2.0
+Package license: Apache-2.0
 
 Summary: OpenVDB - Sparse volume data structure and tools
 
