@@ -2,6 +2,7 @@ schema_version: 1
 
 context:
   version: 12.0.0
+  build_num: 1
 
 package:
   name: openvdb
@@ -12,7 +13,7 @@ source:
   sha256: 23ceb5b18a851f45af118f718a9dd3001efaee364e3f623c37ffbdad03b8905f
 
 build:
-  number: 1
+  number: ${{ build_num }}
   skip: match(python, "<3.10")
 
 requirements:
