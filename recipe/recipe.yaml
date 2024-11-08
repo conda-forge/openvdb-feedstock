@@ -82,11 +82,7 @@ tests:
           - if not exist %LIBRARY_LIB%\cmake\OpenVDB\FindOpenVDB.cmake exit 1
           - if not exist %LIBRARY_LIB%\openvdb.lib exit 1
       - vdb_print --help
-      - >
-          python -c "import openvdb; 
-                     import numpy; 
-                     grid = openvdb.FloatGrid(); 
-                     grid.copyFromArray(numpy.random.rand(200, 200, 200))"
+      - python -c "import openvdb; import numpy; grid = openvdb.FloatGrid(); grid.copyFromArray(numpy.random.rand(200, 200, 200))"
 
 
 
@@ -103,4 +99,3 @@ extra:
   recipe-maintainers:
     - versatran01
     - tetov
-
