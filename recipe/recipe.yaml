@@ -62,7 +62,7 @@ tests:
   - python:
       imports:
         - openvdb
-      pip_check: false
+      pip_check: true
   - requirements:
       run:
         - numpy
