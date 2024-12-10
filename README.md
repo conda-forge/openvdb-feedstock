@@ -127,6 +127,8 @@ Current release info
 
 | Name | Downloads | Version | Platforms |
 | --- | --- | --- | --- |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-nanovdb-green.svg)](https://anaconda.org/conda-forge/nanovdb) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/nanovdb.svg)](https://anaconda.org/conda-forge/nanovdb) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/nanovdb.svg)](https://anaconda.org/conda-forge/nanovdb) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/nanovdb.svg)](https://anaconda.org/conda-forge/nanovdb) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-nanovdb_tools-green.svg)](https://anaconda.org/conda-forge/nanovdb_tools) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/nanovdb_tools.svg)](https://anaconda.org/conda-forge/nanovdb_tools) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/nanovdb_tools.svg)](https://anaconda.org/conda-forge/nanovdb_tools) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/nanovdb_tools.svg)](https://anaconda.org/conda-forge/nanovdb_tools) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-openvdb-green.svg)](https://anaconda.org/conda-forge/openvdb) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/openvdb.svg)](https://anaconda.org/conda-forge/openvdb) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/openvdb.svg)](https://anaconda.org/conda-forge/openvdb) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/openvdb.svg)](https://anaconda.org/conda-forge/openvdb) |
 
 Installing openvdb
@@ -139,41 +141,41 @@ conda config --add channels conda-forge
 conda config --set channel_priority strict
 ```
 
-Once the `conda-forge` channel has been enabled, `openvdb` can be installed with `conda`:
+Once the `conda-forge` channel has been enabled, `nanovdb, nanovdb_tools, openvdb` can be installed with `conda`:
 
 ```
-conda install openvdb
-```
-
-or with `mamba`:
-
-```
-mamba install openvdb
-```
-
-It is possible to list all of the versions of `openvdb` available on your platform with `conda`:
-
-```
-conda search openvdb --channel conda-forge
+conda install nanovdb nanovdb_tools openvdb
 ```
 
 or with `mamba`:
 
 ```
-mamba search openvdb --channel conda-forge
+mamba install nanovdb nanovdb_tools openvdb
+```
+
+It is possible to list all of the versions of `nanovdb` available on your platform with `conda`:
+
+```
+conda search nanovdb --channel conda-forge
+```
+
+or with `mamba`:
+
+```
+mamba search nanovdb --channel conda-forge
 ```
 
 Alternatively, `mamba repoquery` may provide more information:
 
 ```
 # Search all versions available on your platform:
-mamba repoquery search openvdb --channel conda-forge
+mamba repoquery search nanovdb --channel conda-forge
 
-# List packages depending on `openvdb`:
-mamba repoquery whoneeds openvdb --channel conda-forge
+# List packages depending on `nanovdb`:
+mamba repoquery whoneeds nanovdb --channel conda-forge
 
-# List dependencies of `openvdb`:
-mamba repoquery depends openvdb --channel conda-forge
+# List dependencies of `nanovdb`:
+mamba repoquery depends nanovdb --channel conda-forge
 ```
 
 
