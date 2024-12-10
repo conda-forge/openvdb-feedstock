@@ -28,15 +28,15 @@ outputs:
         - ${{ stdlib("c") }}
         - cmake
         - libboost-devel
-        - ${{ "make" if not win}}
+        - ${{ "make" if not win }}
       host:
         - blosc
         - libboost-devel
         - numpy >=1.23.0
         - tbb-devel
         - zlib
-        - ${{ "glew" if win}}
-        - ${{ "jemalloc" if linux}}
+        - ${{ "glew" if win }}
+        - ${{ "jemalloc" if linux }}
       run_exports:
         - ${{ pin_subpackage('openvdb', upper_bound='x') }}
 
@@ -84,6 +84,7 @@ outputs:
     requirements:
       build:
         - ${{ compiler('cxx') }}
+        - ${{ stdlib("c") }}
         - cmake
         - ${{ "make" if not win }}
       host:
@@ -92,9 +93,11 @@ outputs:
         - libboost-devel
         - tbb-devel
         - zlib
-        - ${{ "libgl-devel" if not win }}
-        - ${{ "libglu" if not win }}
-        - ${{ "jemalloc" if linux}}
+        - if: not win
+          then:
+            - libgl-devel
+            - libglu
+        - ${{ "jemalloc" if linux }}
         - ${{ pin_subpackage('openvdb', upper_bound='x') }}
 
     build:
@@ -147,8 +150,9 @@ outputs:
     requirements:
       build:
         - ${{ compiler('cxx') }}
+        - ${{ stdlib("c") }}
         - cmake
-        - ${{ "make" if not win}}
+        - ${{ "make" if not win }}
         - ${{ pin_subpackage('openvdb', upper_bound='x') }}
       run:
         - python
@@ -181,8 +185,7 @@ outputs:
               -Dnanobind_DIR=$SP_DIR/nanobind/cmake
               -DOpenVDB_INCLUDE_DIR=$LD_RUN_PATH
           - cmake --build . --target install
-      files:
-        - ${SP_DIR}/openvdb*.${SHLIB_EXT}
+
     tests:
       - python:
           imports:
@@ -190,8 +193,7 @@ outputs:
           pip_check: true
       - script: python -c "import openvdb; import numpy; grid = openvdb.FloatGrid(); grid.copyFromArray(numpy.random.rand(200, 200, 200))"
         requirements:
-          run:
-            - numpy
+          run: [numpy]
 
   - package:
       name: nanovdb
@@ -199,6 +201,7 @@ outputs:
     requirements:
       build:
         - ${{ compiler('cxx') }}
+        - ${{ stdlib("c") }}
         - cmake
         - libboost-devel
         - ${{ "make" if not win }}
@@ -234,10 +237,11 @@ outputs:
               -DNANOVDB_USE_OPENVDB=ON
               -DNANOVDB_BUILD_TOOLS=OFF
           - cmake --build . --target install
-      files:
-        - lib/libnanovdb${SHLIB_EXT}
-        - include/nanovdb/*.h
-        - cmake/NanoVDB/*.cmake
+
+    tests:
+      - script:
+          - ${{ "test -f ${PREFIX}/include/nanovdb/NanoVDB.h" if not win }}
+          - ${{ "if not exist %LIBRARY_INC%\nanovdb\NanoVDB.h exit 1" if win }}
 
   - package:
       name: nanovdb_tools
@@ -245,6 +249,7 @@ outputs:
     requirements:
       build:
         - ${{ compiler('cxx') }}
+        - ${{ stdlib("c") }}
         - cmake
         - libboost-devel
         - ${{ "make" if not win }}
@@ -279,10 +284,12 @@ outputs:
               -DNANOVDB_USE_OPENVDB=ON
               -DNANOVDB_BUILD_TOOLS=ON
           - cmake --build . --target install
-      files:
-        - lib/libnanovdb${SHLIB_EXT}
-        - include/nanovdb/*.h
-        - cmake/NanoVDB/*.cmake
+
+    tests:
+      - script:
+          - nanovdb_convert --help
+          - nanovdb_print --help
+          - nanovdb_validate --help
 
 about:
   summary: OpenVDB - Sparse volume data structure and tools
