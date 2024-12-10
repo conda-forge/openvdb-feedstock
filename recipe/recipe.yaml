@@ -44,7 +44,6 @@ outputs:
       script:
         env:
           SHARED_CMAKE_ARGS: ${{ shared_cmake_args }}
-          CMAKE_GENERATOR: ${{ "Visual Studio 17 2022" if win else "Unix Makefiles" }}
           CMAKE_BUILD_PARALLEL_LEVEL: ${{ "%CPU_COUNT%" if win else "$CPU_COUNT" }}
         content:
           - mkdir -p build
@@ -103,7 +102,6 @@ outputs:
       script:
         env:
           SHARED_CMAKE_ARGS: ${{ shared_cmake_args }}
-          CMAKE_GENERATOR: ${{ "Visual Studio 17 2022" if win else "Unix Makefiles" }}
           CMAKE_BUILD_PARALLEL_LEVEL: ${{ "%CPU_COUNT%" if win else "$CPU_COUNT" }}
         content:
           - mkdir -p build
@@ -162,7 +160,7 @@ outputs:
       script:
         env:
           SHARED_CMAKE_ARGS: ${{ shared_cmake_args }}
-          CMAKE_GENERATOR: ${{ "Visual Studio 17 2022" if win else "Unix Makefiles" }}
+          CMAKE_BUILD_PARALLEL_LEVEL: ${{ "%CPU_COUNT%" if win else "$CPU_COUNT" }}
         content:
           - mkdir -p build
           - cd build
@@ -216,7 +214,6 @@ outputs:
       script:
         env:
           SHARED_CMAKE_ARGS: ${{ shared_cmake_args }}
-          CMAKE_GENERATOR: ${{ "Visual Studio 17 2022" if win else "Unix Makefiles" }}
           CMAKE_BUILD_PARALLEL_LEVEL: ${{ "%CPU_COUNT%" if win else "$CPU_COUNT" }}
         content:
           - mkdir -p build
@@ -262,7 +259,6 @@ outputs:
       script:
         env:
           SHARED_CMAKE_ARGS: ${{ shared_cmake_args }}
-          CMAKE_GENERATOR: ${{ "Visual Studio 17 2022" if win else "Unix Makefiles" }}
           CMAKE_BUILD_PARALLEL_LEVEL: ${{ "%CPU_COUNT%" if win else "$CPU_COUNT" }}
         content:
           - mkdir -p build
