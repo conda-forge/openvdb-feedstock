@@ -240,8 +240,11 @@ outputs:
 
     tests:
       - script:
-          - ${{ "test -f ${PREFIX}/include/nanovdb/NanoVDB.h" if not win }}
-          - ${{ "if not exist %LIBRARY_INC%\nanovdb\NanoVDB.h exit 1" if win }}
+          - if: win
+            then:
+              - if not exist %LIBRARY_INC%\nanovdb\NanoVDB.h exit 1
+            else:
+              - test -f ${PREFIX}/include/nanovdb/NanoVDB.h
 
   - package:
       name: nanovdb_tools
