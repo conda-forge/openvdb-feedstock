@@ -2,9 +2,9 @@ context:
   version: 12.0.0
   build_num: 3
   shared_cmake_args: >
-    -LAH
     -DOPENVDB_BUILD_CORE=OFF
     -DOPENVDB_BUILD_BINARIES=OFF
+    -DOPENVDB_INSTALL_CMAKE_MODULES=OFF
     -DUSE_EXPLICIT_INSTANTIATION=OFF
 
 recipe:
@@ -29,6 +29,7 @@ outputs:
         - cmake
         - libboost-devel
         - ${{ "make" if not win }}
+        - ${{ "jemalloc" if linux }}
       host:
         - blosc
         - libboost-devel
@@ -36,7 +37,6 @@ outputs:
         - tbb-devel
         - zlib
         - ${{ "glew" if win }}
-        - ${{ "jemalloc" if linux }}
       run_exports:
         - ${{ pin_subpackage('openvdb', upper_bound='x') }}
 
@@ -44,25 +44,18 @@ outputs:
       script:
         env:
           SHARED_CMAKE_ARGS: ${{ shared_cmake_args }}
+          OUTPUT_CMAKE_ARGS: >
+            -DOPENVDB_BUILD_CORE=ON
+            -DOPENVDB_CORE_SHARED=ON
+            -DOPENVDB_CORE_STATIC=OFF
+            -DOPENVDB_INSTALL_CMAKE_MODULES=ON
           CMAKE_BUILD_PARALLEL_LEVEL: ${{ "%CPU_COUNT%" if win else "$CPU_COUNT" }}
         content:
           - mkdir -p build
           - cd build
           - if: win
-            then: >
-              cmake .. 
-              %CMAKE_ARGS% 
-              %SHARED_CMAKE_ARGS%
-              -DOPENVDB_BUILD_CORE=ON
-              -DOPENVDB_CORE_SHARED=ON 
-              -DOPENVDB_CORE_STATIC=OFF
-            else: >
-              cmake .. 
-              $CMAKE_ARGS 
-              $SHARED_CMAKE_ARGS
-              -DOPENVDB_BUILD_CORE=ON
-              -DOPENVDB_CORE_SHARED=ON 
-              -DOPENVDB_CORE_STATIC=OFF
+            then: cmake .. %CMAKE_ARGS% %SHARED_CMAKE_ARGS% %OUTPUT_CMAKE_ARGS%
+            else: cmake .. $CMAKE_ARGS $SHARED_CMAKE_ARGS $OUTPUT_CMAKE_ARGS
           - cmake --build . --target install
 
     tests:
@@ -77,6 +70,65 @@ outputs:
               - test -f ${PREFIX}/include/openvdb/openvdb.h
               - test -f ${PREFIX}/lib/cmake/OpenVDB/FindOpenVDB.cmake
               - test -f ${PREFIX}/lib/libopenvdb${SHLIB_EXT}
+
+  - package:
+      name: openvdb_python
+
+    requirements:
+      build:
+        - ${{ compiler('cxx') }}
+        - ${{ stdlib("c") }}
+        - cmake
+        - libboost-devel
+        - nanobind
+        - python
+        - zlib
+        - pkg-config
+        - ${{ "make" if not win }}
+        - ${{ pin_subpackage('openvdb', upper_bound='x') }}
+      host:
+        - nanobind
+        - python
+        - tbb-devel
+        - ${{ pin_subpackage('openvdb', upper_bound='x') }}
+      run:
+        - python
+        - numpy
+
+    build:
+      script:
+        env:
+          SHARED_CMAKE_ARGS: ${{ shared_cmake_args }}
+          OUTPUT_CMAKE_ARGS: >
+            -DOPENVDB_BUILD_PYTHON_MODULE=ON
+            -DUSE_NUMPY=ON
+            -DCONCURRENT_MALLOC=None
+          CMAKE_BUILD_PARALLEL_LEVEL: ${{ "%CPU_COUNT%" if win else "$CPU_COUNT" }}
+        content:
+          - mkdir -p build
+          - cd build
+          - if: win
+            then: >
+              cmake ..
+              %CMAKE_ARGS%
+              %SHARED_CMAKE_ARGS%
+              %OUTPUT_CMAKE_ARGS%
+              -Dnanobind_DIR=%SP_DIR%/nanobind/cmake
+            else: >
+              cmake ..
+              $CMAKE_ARGS
+              $SHARED_CMAKE_ARGS
+              -Dnanobind_DIR=$SP_DIR/nanobind/cmake
+          - cmake --build . --target install
+
+    tests:
+      - python:
+          imports:
+            - openvdb
+          pip_check: true
+      - script: python -c "import openvdb; import numpy; grid = openvdb.FloatGrid(); grid.copyFromArray(numpy.random.rand(200, 200, 200))"
+        requirements:
+          run: [numpy]
 
   - package:
       name: openvdb_tools
@@ -101,39 +153,23 @@ outputs:
         - ${{ pin_subpackage('openvdb', upper_bound='x') }}
 
     build:
-      skip: True
       script:
         env:
           SHARED_CMAKE_ARGS: ${{ shared_cmake_args }}
+          OUTPUT_CMAKE_ARGS: >
+            -DOPENVDB_BUILD_BINARIES=ON
+            -DOPENVDB_BUILD_VDB_PRINT=ON
+            -DOPENVDB_BUILD_VDB_LOD=ON 
+            -DOPENVDB_BUILD_VDB_RENDER=ON
+            -DOPENVDB_BUILD_VDB_VIEW=ON
+            -DOPENVDB_BUILD_VDB_TOOL=ON
           CMAKE_BUILD_PARALLEL_LEVEL: ${{ "%CPU_COUNT%" if win else "$CPU_COUNT" }}
         content:
           - mkdir -p build
           - cd build
           - if: win
-            then: >
-              cmake ..
-              %CMAKE_ARGS%
-              %SHARED_CMAKE_ARGS%
-              -DOPENVDB_BUILD_BINARIES=ON
-              -DOPENVDB_BUILD_VDB_PRINT=ON
-              -DOPENVDB_BUILD_VDB_LOD=ON 
-              -DOPENVDB_BUILD_VDB_RENDER=ON
-              -DOPENVDB_BUILD_VDB_VIEW=ON
-              -DOPENVDB_BUILD_VDB_TOOL=ON
-              -DOpenVDB_INCLUDE_DIR=%LIBRARY_INC%
-            else: >
-              cmake ..
-              $CMAKE_ARGS 
-              $SHARED_CMAKE_ARGS
-              -DOPENVDB_BUILD_BINARIES=ON
-              -DOPENVDB_BUILD_VDB_PRINT=ON
-              -DOPENVDB_BUILD_VDB_LOD=ON 
-              -DOPENVDB_BUILD_VDB_RENDER=ON
-              -DOPENVDB_BUILD_VDB_VIEW=ON
-              -DOPENVDB_BUILD_VDB_TOOL=ON
-              -DOpenVDB_INCLUDE_DIR=$LD_RUN_PATH
-              -DOpenVDB_openvdb_INCLUDE_DIR=$LD_RUN_PATH
-              -DOpenVDB_openvdb_LIBRARY_DIR=$LD_RUN_PATH
+            then: cmake .. %CMAKE_ARGS% %SHARED_CMAKE_ARGS% %OUTPUT_CMAKE_ARGS%
+            else: cmake .. $CMAKE_ARGS $SHARED_CMAKE_ARGS $OUTPUT_CMAKE_ARGS
           - cmake --build . --target install
 
     tests:
@@ -143,57 +179,6 @@ outputs:
           - vdb_render --help
           - vdb_view --help
           - vdb_tool --help
-
-  - package:
-      name: openvdb_python
-
-    requirements:
-      build:
-        - ${{ compiler('cxx') }}
-        - ${{ stdlib("c") }}
-        - cmake
-        - ${{ "make" if not win }}
-        - ${{ pin_subpackage('openvdb', upper_bound='x') }}
-      run:
-        - python
-        - numpy
-        - ${{ pin_subpackage('openvdb', upper_bound='x') }}
-
-    build:
-      skip: True
-      script:
-        env:
-          SHARED_CMAKE_ARGS: ${{ shared_cmake_args }}
-          CMAKE_BUILD_PARALLEL_LEVEL: ${{ "%CPU_COUNT%" if win else "$CPU_COUNT" }}
-        content:
-          - mkdir -p build
-          - cd build
-          - if: win
-            then: >
-              cmake ..
-              %CMAKE_ARGS%
-              %SHARED_CMAKE_ARGS%
-              -DOPENVDB_BUILD_PYTHON_MODULE=ON
-              -DUSE_NUMPY=ON
-              -Dnanobind_DIR=%SP_DIR%/nanobind/cmake
-            else: >
-              cmake ..
-              $CMAKE_ARGS
-              $SHARED_CMAKE_ARGS
-              -DOPENVDB_BUILD_PYTHON_MODULE=ON
-              -DUSE_NUMPY=ON
-              -Dnanobind_DIR=$SP_DIR/nanobind/cmake
-              -DOpenVDB_INCLUDE_DIR=$LD_RUN_PATH
-          - cmake --build . --target install
-
-    tests:
-      - python:
-          imports:
-            - openvdb
-          pip_check: true
-      - script: python -c "import openvdb; import numpy; grid = openvdb.FloatGrid(); grid.copyFromArray(numpy.random.rand(200, 200, 200))"
-        requirements:
-          run: [numpy]
 
   - package:
       name: nanovdb
@@ -206,7 +191,6 @@ outputs:
         - libboost-devel
         - ${{ "make" if not win }}
       host:
-        - libboost-devel
         - tbb-devel
         - zlib
         - ${{ pin_subpackage('openvdb', upper_bound='x') }}
@@ -217,25 +201,18 @@ outputs:
       script:
         env:
           SHARED_CMAKE_ARGS: ${{ shared_cmake_args }}
+          OUTPUT_CMAKE_ARGS: >
+            -DOPENVDB_BUILD_NANOVDB=ON
+            -DNANOVDB_USE_OPENVDB=ON
+            -DNANOVDB_USE_TBB=ON
+            -DNANOVDB_BUILD_TOOLS=OFF
           CMAKE_BUILD_PARALLEL_LEVEL: ${{ "%CPU_COUNT%" if win else "$CPU_COUNT" }}
         content:
           - mkdir -p build
           - cd build
           - if: win
-            then: >
-              cmake .. 
-              %CMAKE_ARGS% 
-              %SHARED_CMAKE_ARGS%
-              -DOPENVDB_BUILD_NANOVDB=ON 
-              -DNANOVDB_USE_OPENVDB=ON
-              -DNANOVDB_BUILD_TOOLS=OFF
-            else: >
-              cmake ..
-              $CMAKE_ARGS
-              $SHARED_CMAKE_ARGS
-              -DOPENVDB_BUILD_NANOVDB=ON
-              -DNANOVDB_USE_OPENVDB=ON
-              -DNANOVDB_BUILD_TOOLS=OFF
+            then: cmake .. %CMAKE_ARGS% %SHARED_CMAKE_ARGS% %OUTPUT_CMAKE_ARGS%
+            else: cmake .. $CMAKE_ARGS $SHARED_CMAKE_ARGS $OUTPUT_CMAKE_ARGS
           - cmake --build . --target install
 
     tests:
@@ -245,6 +222,61 @@ outputs:
               - if not exist %LIBRARY_INC%\nanovdb\NanoVDB.h exit 1
             else:
               - test -f ${PREFIX}/include/nanovdb/NanoVDB.h
+
+  - package:
+      name: nanovdb_python
+
+    requirements:
+      build:
+        - ${{ compiler('cxx') }}
+        - ${{ stdlib("c") }}
+        - cmake
+        - libboost-devel
+        - nanobind
+        - python
+        - ${{ "make" if not win }}
+      host:
+        - nanobind
+        - python
+        - tbb-devel
+        - zlib
+        - ${{ pin_subpackage('nanovdb', upper_bound='x') }}
+      run:
+        - python
+
+    build:
+      script:
+        env:
+          SHARED_CMAKE_ARGS: ${{ shared_cmake_args }}
+          OUTPUT_CMAKE_ARGS: >
+            -DOPENVDB_BUILD_NANOVDB=ON
+            -DNANOVDB_USE_OPENVDB=ON
+            -DNANOVDB_USE_TBB=ON
+            -DNANOVDB_BUILD_TOOLS=OFF
+            -DNANOVDB_BUILD_PYTHON_MODULE=ON
+          CMAKE_BUILD_PARALLEL_LEVEL: ${{ "%CPU_COUNT%" if win else "$CPU_COUNT" }}
+        content:
+          - mkdir -p build
+          - cd build
+          - if: win
+            then: >
+              cmake .. 
+              %CMAKE_ARGS% 
+              %SHARED_CMAKE_ARGS% 
+              %OUTPUT_CMAKE_ARGS%
+              -Dnanobind_DIR=%SP_DIR%/nanobind/cmake
+            else: >
+              cmake .. 
+              $CMAKE_ARGS 
+              $SHARED_CMAKE_ARGS 
+              $OUTPUT_CMAKE_ARGS
+              -Dnanobind_DIR=$SP_DIR/nanobind/cmake
+          - cmake --build . --target install
+    tests:
+      - python:
+          imports:
+            - nanovdb
+          pip_check: true
 
   - package:
       name: nanovdb_tools
