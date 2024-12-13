@@ -5,6 +5,7 @@ context:
     -DOPENVDB_BUILD_CORE=OFF
     -DOPENVDB_BUILD_BINARIES=OFF
     -DOPENVDB_INSTALL_CMAKE_MODULES=OFF
+    -DNANOVDB_BUILD_TOOLS=OFF
     -DUSE_EXPLICIT_INSTANTIATION=OFF
 
 recipe:
@@ -21,7 +22,7 @@ build:
 
 outputs:
   - package:
-      name: openvdb
+      name: libopenvdb
     requirements:
       build:
         - ${{ compiler('cxx') }}
@@ -38,7 +39,7 @@ outputs:
         - zlib
         - ${{ "glew" if win }}
       run_exports:
-        - ${{ pin_subpackage('openvdb', upper_bound='x') }}
+        - ${{ pin_subpackage('libopenvdb', upper_bound='x') }}
 
     build:
       script:
@@ -57,6 +58,10 @@ outputs:
             then: cmake .. %CMAKE_ARGS% %SHARED_CMAKE_ARGS% %OUTPUT_CMAKE_ARGS%
             else: cmake .. $CMAKE_ARGS $SHARED_CMAKE_ARGS $OUTPUT_CMAKE_ARGS
           - cmake --build . --target install
+      files:
+        - ${{ "Library/bin/*" if win else "lib/*" }}
+        - ${{ "Library/" if win }}include/**/*
+        - ${{ "Library/" if win }}lib/cmake/OpenVDB/FindOpenVDB.cmake"
 
     tests:
       - script:
@@ -65,14 +70,13 @@ outputs:
               - if not exist %LIBRARY_BIN%\openvdb%SHLIB_EXT% exit 1
               - if not exist %LIBRARY_INC%\openvdb\openvdb.h exit 1
               - if not exist %LIBRARY_LIB%\cmake\OpenVDB\FindOpenVDB.cmake exit 1
-              - if not exist %LIBRARY_LIB%\openvdb.lib exit 1
             else:
               - test -f ${PREFIX}/include/openvdb/openvdb.h
               - test -f ${PREFIX}/lib/cmake/OpenVDB/FindOpenVDB.cmake
               - test -f ${PREFIX}/lib/libopenvdb${SHLIB_EXT}
 
   - package:
-      name: openvdb_python
+      name: openvdb
 
     requirements:
       build:
@@ -85,12 +89,12 @@ outputs:
         - zlib
         - pkg-config
         - ${{ "make" if not win }}
-        - ${{ pin_subpackage('openvdb', upper_bound='x') }}
+        - ${{ pin_subpackage('libopenvdb', upper_bound='x') }}
       host:
         - nanobind
         - python
         - tbb-devel
-        - ${{ pin_subpackage('openvdb', upper_bound='x') }}
+        - ${{ pin_subpackage('libopenvdb', upper_bound='x') }}
       run:
         - python
         - numpy
@@ -150,7 +154,7 @@ outputs:
             - libgl-devel
             - libglu
         - ${{ "jemalloc" if linux }}
-        - ${{ pin_subpackage('openvdb', upper_bound='x') }}
+        - ${{ pin_subpackage('libopenvdb', upper_bound='x') }}
 
     build:
       script:
@@ -189,49 +193,6 @@ outputs:
         - ${{ stdlib("c") }}
         - cmake
         - libboost-devel
-        - ${{ "make" if not win }}
-      host:
-        - tbb-devel
-        - zlib
-        - ${{ pin_subpackage('openvdb', upper_bound='x') }}
-      run_exports:
-        - ${{ pin_subpackage('nanovdb', upper_bound='x') }}
-
-    build:
-      script:
-        env:
-          SHARED_CMAKE_ARGS: ${{ shared_cmake_args }}
-          OUTPUT_CMAKE_ARGS: >
-            -DOPENVDB_BUILD_NANOVDB=ON
-            -DNANOVDB_USE_OPENVDB=ON
-            -DNANOVDB_USE_TBB=ON
-            -DNANOVDB_BUILD_TOOLS=OFF
-          CMAKE_BUILD_PARALLEL_LEVEL: ${{ "%CPU_COUNT%" if win else "$CPU_COUNT" }}
-        content:
-          - mkdir -p build
-          - cd build
-          - if: win
-            then: cmake .. %CMAKE_ARGS% %SHARED_CMAKE_ARGS% %OUTPUT_CMAKE_ARGS%
-            else: cmake .. $CMAKE_ARGS $SHARED_CMAKE_ARGS $OUTPUT_CMAKE_ARGS
-          - cmake --build . --target install
-
-    tests:
-      - script:
-          - if: win
-            then:
-              - if not exist %LIBRARY_INC%\nanovdb\NanoVDB.h exit 1
-            else:
-              - test -f ${PREFIX}/include/nanovdb/NanoVDB.h
-
-  - package:
-      name: nanovdb_python
-
-    requirements:
-      build:
-        - ${{ compiler('cxx') }}
-        - ${{ stdlib("c") }}
-        - cmake
-        - libboost-devel
         - nanobind
         - python
         - ${{ "make" if not win }}
@@ -240,9 +201,11 @@ outputs:
         - python
         - tbb-devel
         - zlib
-        - ${{ pin_subpackage('nanovdb', upper_bound='x') }}
+        - ${{ pin_subpackage('libopenvdb', upper_bound='x') }}
       run:
         - python
+      run_exports:
+        - ${{ pin_subpackage('nanovdb', upper_bound='x.x') }}
 
     build:
       script:
@@ -251,9 +214,8 @@ outputs:
           OUTPUT_CMAKE_ARGS: >
             -DOPENVDB_BUILD_NANOVDB=ON
             -DNANOVDB_USE_OPENVDB=ON
-            -DNANOVDB_USE_TBB=ON
-            -DNANOVDB_BUILD_TOOLS=OFF
             -DNANOVDB_BUILD_PYTHON_MODULE=ON
+            -DNANOVDB_USE_TBB=ON
           CMAKE_BUILD_PARALLEL_LEVEL: ${{ "%CPU_COUNT%" if win else "$CPU_COUNT" }}
         content:
           - mkdir -p build
@@ -277,6 +239,12 @@ outputs:
           imports:
             - nanovdb
           pip_check: true
+      - script:
+          - if: win
+            then:
+              - if not exist %LIBRARY_INC%\nanovdb\NanoVDB.h exit 1
+            else:
+              - test -f ${PREFIX}/include/nanovdb/NanoVDB.h
 
   - package:
       name: nanovdb_tools
@@ -292,8 +260,8 @@ outputs:
         - libboost-devel
         - tbb-devel
         - zlib
-        - ${{ pin_subpackage('openvdb', upper_bound='x') }}
-        - ${{ pin_subpackage('nanovdb', upper_bound='x') }}
+        - ${{ pin_subpackage('libopenvdb', upper_bound='x') }}
+        - ${{ pin_subpackage('nanovdb', upper_bound='x.x') }}
 
     build:
       script:
