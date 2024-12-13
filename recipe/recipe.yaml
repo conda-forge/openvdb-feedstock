@@ -139,14 +139,14 @@ outputs:
         - ${{ compiler('cxx') }}
         - ${{ stdlib("c") }}
         - cmake
+        - blosc
+        - libboost-devel
         - ${{ "make" if not win }}
       host:
-        - blosc
         - glfw
-        - libboost-devel
         - tbb-devel
         - zlib
-        - if: not win
+        - if: linux
           then:
             - libgl-devel
             - libglu
