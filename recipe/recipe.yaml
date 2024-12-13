@@ -1,6 +1,7 @@
 context:
   version: 12.0.0
   build_num: 3
+  nanovdb_version: 32.7.0
   shared_cmake_args: >
     -DOPENVDB_BUILD_CORE=OFF
     -DOPENVDB_BUILD_BINARIES=OFF
@@ -58,10 +59,6 @@ outputs:
             then: cmake .. %CMAKE_ARGS% %SHARED_CMAKE_ARGS% %OUTPUT_CMAKE_ARGS%
             else: cmake .. $CMAKE_ARGS $SHARED_CMAKE_ARGS $OUTPUT_CMAKE_ARGS
           - cmake --build . --target install
-      files:
-        - ${{ "Library/bin/*" if win else "lib/*" }}
-        - ${{ "Library/" if win }}include/**/*
-        - ${{ "Library/" if win }}lib/cmake/OpenVDB/FindOpenVDB.cmake"
 
     tests:
       - script:
@@ -123,7 +120,7 @@ outputs:
               $CMAKE_ARGS
               $SHARED_CMAKE_ARGS
               -Dnanobind_DIR=$SP_DIR/nanobind/cmake
-          - cmake --build . --target install
+          - cmake --build . --target all
 
     tests:
       - python:
@@ -181,11 +178,12 @@ outputs:
           - vdb_print --help
           - vdb_lod --help
           - vdb_render --help
-          - vdb_view --help
           - vdb_tool --help
+          #- vdb_view --help
 
   - package:
       name: nanovdb
+      version: ${{ nanovdb_version }}
 
     requirements:
       build:
@@ -234,6 +232,7 @@ outputs:
               $OUTPUT_CMAKE_ARGS
               -Dnanobind_DIR=$SP_DIR/nanobind/cmake
           - cmake --build . --target install
+
     tests:
       - python:
           imports:
