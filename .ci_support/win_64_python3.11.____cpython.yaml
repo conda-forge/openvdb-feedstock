@@ -10,20 +10,15 @@ glew:
 - '2.1'
 libboost_devel:
 - '1.86'
-numpy:
-- '2.0'
 pin_run_as_build:
   python:
     min_pin: x.x
     max_pin: x.x
 python:
-- 3.10.* *_cpython
+- 3.11.* *_cpython
 target_platform:
 - win-64
 tbb_devel:
 - '2021'
-zip_keys:
-- - python
-  - numpy
 zlib:
 - '1'

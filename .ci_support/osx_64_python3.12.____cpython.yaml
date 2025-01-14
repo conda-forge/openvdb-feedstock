@@ -18,8 +18,6 @@ libboost_devel:
 - '1.86'
 macos_machine:
 - x86_64-apple-darwin13.4.0
-numpy:
-- '2.0'
 pin_run_as_build:
   python:
     min_pin: x.x
@@ -30,8 +28,5 @@ target_platform:
 - osx-64
 tbb_devel:
 - '2021'
-zip_keys:
-- - python
-  - numpy
 zlib:
 - '1'
