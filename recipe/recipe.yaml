@@ -80,7 +80,7 @@ outputs:
               $SHARED_CMAKE_ARGS
               $OUTPUT_CMAKE_ARGS
               -Dnanobind_DIR=$SP_DIR/nanobind/cmake
-          - cmake --build . --target install
+          - cmake --build . --target install --config Release
 
     tests:
       - python:
@@ -141,7 +141,7 @@ outputs:
           - if: win
             then: cmake .. %CMAKE_ARGS% %SHARED_CMAKE_ARGS% %OUTPUT_CMAKE_ARGS%
             else: cmake .. $CMAKE_ARGS $SHARED_CMAKE_ARGS $OUTPUT_CMAKE_ARGS
-          - cmake --build . --target install
+          - cmake --build . --target install --config Release
 
     tests:
       - script:
@@ -200,7 +200,7 @@ outputs:
               $SHARED_CMAKE_ARGS 
               $OUTPUT_CMAKE_ARGS
               -Dnanobind_DIR=$SP_DIR/nanobind/cmake
-          - cmake --build . --target install
+          - cmake --build . --target install --config Release
 
     tests:
       - python:
@@ -254,7 +254,7 @@ outputs:
               -DOPENVDB_BUILD_NANOVDB=ON 
               -DNANOVDB_USE_OPENVDB=ON
               -DNANOVDB_BUILD_TOOLS=ON
-          - cmake --build . --target install
+          - cmake --build . --target install --config Release
 
     tests:
       - script:
