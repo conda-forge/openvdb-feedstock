@@ -103,7 +103,7 @@ outputs:
               - test -f ${PREFIX}/lib/libopenvdb${SHLIB_EXT}
 
   - package:
-      name: openvdb_tools
+      name: openvdb-tools
 
     requirements:
       build:
@@ -217,7 +217,7 @@ outputs:
               - test -f ${PREFIX}/include/nanovdb/NanoVDB.h
 
   - package:
-      name: nanovdb_tools
+      name: nanovdb-tools
 
     requirements:
       build:
