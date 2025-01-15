@@ -31,87 +31,66 @@ Current build status
         <table>
           <thead><tr><th>Variant</th><th>Status</th></tr></thead>
           <tbody><tr>
-              <td>linux_64_numpy2.0python3.10.____cpython</td>
+              <td>linux_64_python3.11.____cpython</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=20093&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/openvdb-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_numpy2.0python3.10.____cpython" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/openvdb-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_python3.11.____cpython" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>linux_64_numpy2.0python3.11.____cpython</td>
+              <td>linux_64_python3.12.____cpython</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=20093&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/openvdb-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_numpy2.0python3.11.____cpython" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/openvdb-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_python3.12.____cpython" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>linux_64_numpy2.0python3.12.____cpython</td>
+              <td>linux_64_python3.13.____cp313</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=20093&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/openvdb-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_numpy2.0python3.12.____cpython" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/openvdb-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_python3.13.____cp313" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>linux_64_numpy2python3.13.____cp313</td>
+              <td>osx_64_python3.11.____cpython</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=20093&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/openvdb-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_numpy2python3.13.____cp313" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/openvdb-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_python3.11.____cpython" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>osx_64_numpy2.0python3.10.____cpython</td>
+              <td>osx_64_python3.12.____cpython</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=20093&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/openvdb-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_numpy2.0python3.10.____cpython" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/openvdb-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_python3.12.____cpython" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>osx_64_numpy2.0python3.11.____cpython</td>
+              <td>osx_64_python3.13.____cp313</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=20093&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/openvdb-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_numpy2.0python3.11.____cpython" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/openvdb-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_python3.13.____cp313" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>osx_64_numpy2.0python3.12.____cpython</td>
+              <td>win_64_python3.11.____cpython</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=20093&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/openvdb-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_numpy2.0python3.12.____cpython" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/openvdb-feedstock?branchName=main&jobName=win&configuration=win%20win_64_python3.11.____cpython" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>osx_64_numpy2python3.13.____cp313</td>
+              <td>win_64_python3.12.____cpython</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=20093&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/openvdb-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_numpy2python3.13.____cp313" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/openvdb-feedstock?branchName=main&jobName=win&configuration=win%20win_64_python3.12.____cpython" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>win_64_numpy2.0python3.10.____cpython</td>
+              <td>win_64_python3.13.____cp313</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=20093&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/openvdb-feedstock?branchName=main&jobName=win&configuration=win%20win_64_numpy2.0python3.10.____cpython" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>win_64_numpy2.0python3.11.____cpython</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=20093&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/openvdb-feedstock?branchName=main&jobName=win&configuration=win%20win_64_numpy2.0python3.11.____cpython" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>win_64_numpy2.0python3.12.____cpython</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=20093&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/openvdb-feedstock?branchName=main&jobName=win&configuration=win%20win_64_numpy2.0python3.12.____cpython" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>win_64_numpy2python3.13.____cp313</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=20093&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/openvdb-feedstock?branchName=main&jobName=win&configuration=win%20win_64_numpy2python3.13.____cp313" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/openvdb-feedstock?branchName=main&jobName=win&configuration=win%20win_64_python3.13.____cp313" alt="variant">
                 </a>
               </td>
             </tr>
@@ -127,7 +106,10 @@ Current release info
 
 | Name | Downloads | Version | Platforms |
 | --- | --- | --- | --- |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-nanovdb-green.svg)](https://anaconda.org/conda-forge/nanovdb) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/nanovdb.svg)](https://anaconda.org/conda-forge/nanovdb) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/nanovdb.svg)](https://anaconda.org/conda-forge/nanovdb) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/nanovdb.svg)](https://anaconda.org/conda-forge/nanovdb) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-nanovdb_tools-green.svg)](https://anaconda.org/conda-forge/nanovdb_tools) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/nanovdb_tools.svg)](https://anaconda.org/conda-forge/nanovdb_tools) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/nanovdb_tools.svg)](https://anaconda.org/conda-forge/nanovdb_tools) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/nanovdb_tools.svg)](https://anaconda.org/conda-forge/nanovdb_tools) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-openvdb-green.svg)](https://anaconda.org/conda-forge/openvdb) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/openvdb.svg)](https://anaconda.org/conda-forge/openvdb) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/openvdb.svg)](https://anaconda.org/conda-forge/openvdb) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/openvdb.svg)](https://anaconda.org/conda-forge/openvdb) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-openvdb_tools-green.svg)](https://anaconda.org/conda-forge/openvdb_tools) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/openvdb_tools.svg)](https://anaconda.org/conda-forge/openvdb_tools) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/openvdb_tools.svg)](https://anaconda.org/conda-forge/openvdb_tools) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/openvdb_tools.svg)](https://anaconda.org/conda-forge/openvdb_tools) |
 
 Installing openvdb
 ==================
@@ -139,41 +121,41 @@ conda config --add channels conda-forge
 conda config --set channel_priority strict
 ```
 
-Once the `conda-forge` channel has been enabled, `openvdb` can be installed with `conda`:
+Once the `conda-forge` channel has been enabled, `nanovdb, nanovdb_tools, openvdb, openvdb_tools` can be installed with `conda`:
 
 ```
-conda install openvdb
-```
-
-or with `mamba`:
-
-```
-mamba install openvdb
-```
-
-It is possible to list all of the versions of `openvdb` available on your platform with `conda`:
-
-```
-conda search openvdb --channel conda-forge
+conda install nanovdb nanovdb_tools openvdb openvdb_tools
 ```
 
 or with `mamba`:
 
 ```
-mamba search openvdb --channel conda-forge
+mamba install nanovdb nanovdb_tools openvdb openvdb_tools
+```
+
+It is possible to list all of the versions of `nanovdb` available on your platform with `conda`:
+
+```
+conda search nanovdb --channel conda-forge
+```
+
+or with `mamba`:
+
+```
+mamba search nanovdb --channel conda-forge
 ```
 
 Alternatively, `mamba repoquery` may provide more information:
 
 ```
 # Search all versions available on your platform:
-mamba repoquery search openvdb --channel conda-forge
+mamba repoquery search nanovdb --channel conda-forge
 
-# List packages depending on `openvdb`:
-mamba repoquery whoneeds openvdb --channel conda-forge
+# List packages depending on `nanovdb`:
+mamba repoquery whoneeds nanovdb --channel conda-forge
 
-# List dependencies of `openvdb`:
-mamba repoquery depends openvdb --channel conda-forge
+# List dependencies of `nanovdb`:
+mamba repoquery depends nanovdb --channel conda-forge
 ```
 
 
