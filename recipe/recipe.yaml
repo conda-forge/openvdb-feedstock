@@ -1,6 +1,6 @@
 context:
   version: 12.0.0
-  build_num: 4
+  build_num: 5
   nanovdb_version: 32.7.0
   shared_cmake_args: >
     -Wno-dev
@@ -269,7 +269,9 @@ about:
   description: |
     OpenVDB is an open source C++ library comprising a novel hierarchical data structure and a large suite of tools for the efficient storage and manipulation of sparse volumetric data discretized on three-dimensional grids. It was developed by DreamWorks Animation for use in volumetric applications typically encountered in feature film production.
   license: Apache-2.0
-  license_file: LICENSE
+  license_file:
+    - LICENSE
+    - RE-LICENSE_NOTE.txt
   homepage: https://github.com/AcademySoftwareFoundation/openvdb
   repository: https://github.com/AcademySoftwareFoundation/openvdb
 
