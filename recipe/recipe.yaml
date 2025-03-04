@@ -42,6 +42,7 @@ outputs:
             - cross-python_${{ target_platform }}
             - python
             - numpy
+            - nanobind
       host:
         - blosc
         - libboost-devel
