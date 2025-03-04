@@ -76,6 +76,7 @@ outputs:
               %SHARED_CMAKE_ARGS%
               %OUTPUT_CMAKE_ARGS%
               -DVDB_PYTHON_INSTALL_DIRECTORY="%PREFIX%/Lib/site-packages"
+              -DPython_EXECUTABLE:PATH=%PYTHON%
               -Dnanobind_DIR=%SP_DIR%/nanobind/cmake
             else: >
               cmake ..
