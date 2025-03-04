@@ -37,6 +37,11 @@ outputs:
         - zlib
         - ${{ "jemalloc" if linux }}
         - ${{ "make" if not win }}
+        - if: build_platform != target_platform
+          then:
+            - cross-python_${{ target_platform }}
+            - python
+            - numpy
       host:
         - blosc
         - libboost-devel
