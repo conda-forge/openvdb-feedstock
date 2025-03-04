@@ -30,11 +30,7 @@ outputs:
         - ${{ compiler('cxx') }}
         - ${{ stdlib("c") }}
         - cmake
-        - libboost-devel
-        - nanobind
         - pkg-config
-        - python
-        - zlib
         - ${{ "jemalloc" if linux }}
         - ${{ "make" if not win }}
         - if: build_platform != target_platform
@@ -117,10 +113,10 @@ outputs:
         - ${{ compiler('cxx') }}
         - ${{ stdlib("c") }}
         - cmake
-        - blosc
-        - libboost-devel
         - ${{ "make" if not win }}
       host:
+        - blosc
+        - libboost-devel
         - glfw
         - tbb-devel
         - zlib
@@ -167,9 +163,6 @@ outputs:
         - ${{ compiler('cxx') }}
         - ${{ stdlib("c") }}
         - cmake
-        - libboost-devel
-        - nanobind
-        - python
         - ${{ "make" if not win }}
         - if: build_platform != target_platform
           then:
@@ -178,6 +171,7 @@ outputs:
             - numpy
             - nanobind
       host:
+        - libboost-devel
         - nanobind
         - python
         - tbb-devel
@@ -239,7 +233,6 @@ outputs:
         - ${{ compiler('cxx') }}
         - ${{ stdlib("c") }}
         - cmake
-        - libboost-devel
         - ${{ "make" if not win }}
       host:
         - libboost-devel
