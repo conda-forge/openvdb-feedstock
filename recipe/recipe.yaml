@@ -171,6 +171,12 @@ outputs:
         - nanobind
         - python
         - ${{ "make" if not win }}
+        - if: build_platform != target_platform
+          then:
+            - cross-python_${{ target_platform }}
+            - python
+            - numpy
+            - nanobind
       host:
         - nanobind
         - python
@@ -203,12 +209,14 @@ outputs:
               %OUTPUT_CMAKE_ARGS%
               -DVDB_PYTHON_INSTALL_DIRECTORY="%PREFIX%/Lib/site-packages"
               -Dnanobind_DIR=%SP_DIR%/nanobind/cmake
+              -DPython_EXECUTABLE:PATH=%PYTHON%
             else: >
               cmake .. 
               $CMAKE_ARGS 
               $SHARED_CMAKE_ARGS 
               $OUTPUT_CMAKE_ARGS
               -Dnanobind_DIR=$SP_DIR/nanobind/cmake
+              -DPython_EXECUTABLE:PATH=${PYTHON}
           - cmake --build . --target install --config Release
 
     tests:
