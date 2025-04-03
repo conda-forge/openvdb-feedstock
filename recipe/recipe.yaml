@@ -86,8 +86,8 @@ outputs:
             - openvdb
           pip_check: true
       - script: >
-          python -c "
-          import openvdb;
+          python -c
+          "import openvdb;
           import numpy;
           grid = openvdb.FloatGrid();
           grid.copyFromArray(numpy.random.rand(200, 200, 200))"
