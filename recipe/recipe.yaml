@@ -1,7 +1,6 @@
 context:
-  version: 12.0.0
-  build_num: 6
-  nanovdb_version: 32.7.0
+  version: "12.0.1"
+  nanovdb_version: 32.7.0 # NanoVDB.h
   shared_cmake_args: >
     -Wno-dev
     -DOPENVDB_BUILD_CORE=OFF
@@ -16,10 +15,10 @@ recipe:
 
 source:
   url: https://github.com/AcademySoftwareFoundation/openvdb/archive/refs/tags/v${{ version }}.tar.gz
-  sha256: 23ceb5b18a851f45af118f718a9dd3001efaee364e3f623c37ffbdad03b8905f
+  sha256: a3c8724ecadabaf558b6e1bd6f1d695e93b82a7cfdf144b8551e5253340ddce0
 
 build:
-  number: ${{ build_num }}
+  number: 0
   skip: match(python, "<=3.9")
 
 outputs:
@@ -71,18 +70,12 @@ outputs:
           - cd build
           - if: win
             then: >
-              cmake ..
-              %CMAKE_ARGS%
-              %SHARED_CMAKE_ARGS%
-              %OUTPUT_CMAKE_ARGS%
+              cmake .. %CMAKE_ARGS% %SHARED_CMAKE_ARGS% %OUTPUT_CMAKE_ARGS%
               -DVDB_PYTHON_INSTALL_DIRECTORY="%PREFIX%/Lib/site-packages"
               -DPython_EXECUTABLE:PATH=%PYTHON%
               -Dnanobind_DIR=%SP_DIR%/nanobind/cmake
             else: >
-              cmake ..
-              $CMAKE_ARGS
-              $SHARED_CMAKE_ARGS
-              $OUTPUT_CMAKE_ARGS
+              cmake .. $CMAKE_ARGS $SHARED_CMAKE_ARGS $OUTPUT_CMAKE_ARGS
               -DPython_EXECUTABLE:PATH=${PYTHON}
               -Dnanobind_DIR=$SP_DIR/nanobind/cmake
           - cmake --build . --target install --config Release
@@ -92,7 +85,12 @@ outputs:
           imports:
             - openvdb
           pip_check: true
-      - script: python -c "import openvdb; import numpy; grid = openvdb.FloatGrid(); grid.copyFromArray(numpy.random.rand(200, 200, 200))"
+      - script: >
+          python -c
+          "import openvdb;
+          import numpy;
+          grid = openvdb.FloatGrid();
+          grid.copyFromArray(numpy.random.rand(200, 200, 200))"
         requirements:
           run: [numpy]
       - script:
@@ -135,7 +133,7 @@ outputs:
           OUTPUT_CMAKE_ARGS: >
             -DOPENVDB_BUILD_BINARIES=ON
             -DOPENVDB_BUILD_VDB_PRINT=ON
-            -DOPENVDB_BUILD_VDB_LOD=ON 
+            -DOPENVDB_BUILD_VDB_LOD=ON
             -DOPENVDB_BUILD_VDB_RENDER=ON
             -DOPENVDB_BUILD_VDB_VIEW=ON
             -DOPENVDB_BUILD_VDB_TOOL=ON
@@ -198,18 +196,12 @@ outputs:
           - cd build
           - if: win
             then: >
-              cmake .. 
-              %CMAKE_ARGS% 
-              %SHARED_CMAKE_ARGS% 
-              %OUTPUT_CMAKE_ARGS%
+              cmake .. %CMAKE_ARGS% %SHARED_CMAKE_ARGS% %OUTPUT_CMAKE_ARGS%
               -DVDB_PYTHON_INSTALL_DIRECTORY="%PREFIX%/Lib/site-packages"
               -Dnanobind_DIR=%SP_DIR%/nanobind/cmake
               -DPython_EXECUTABLE:PATH=%PYTHON%
             else: >
-              cmake .. 
-              $CMAKE_ARGS 
-              $SHARED_CMAKE_ARGS 
-              $OUTPUT_CMAKE_ARGS
+              cmake .. $CMAKE_ARGS $SHARED_CMAKE_ARGS $OUTPUT_CMAKE_ARGS
               -Dnanobind_DIR=$SP_DIR/nanobind/cmake
               -DPython_EXECUTABLE:PATH=${PYTHON}
           - cmake --build . --target install --config Release
@@ -246,25 +238,17 @@ outputs:
       script:
         env:
           SHARED_CMAKE_ARGS: ${{ shared_cmake_args }}
+          OUTPUT_CMAKE_ARGS: >
+            -DOPENVDB_BUILD_NANOVDB=ON
+            -DNANOVDB_USE_OPENVDB=ON
+            -DNANOVDB_BUILD_TOOLS=ON
           CMAKE_BUILD_PARALLEL_LEVEL: ${{ "%CPU_COUNT%" if win else "$CPU_COUNT" }}
         content:
           - mkdir -p build
           - cd build
           - if: win
-            then: >
-              cmake .. 
-              %CMAKE_ARGS% 
-              %SHARED_CMAKE_ARGS%
-              -DOPENVDB_BUILD_NANOVDB=ON 
-              -DNANOVDB_USE_OPENVDB=ON
-              -DNANOVDB_BUILD_TOOLS=ON
-            else: >
-              cmake ..
-              $CMAKE_ARGS
-              $SHARED_CMAKE_ARGS
-              -DOPENVDB_BUILD_NANOVDB=ON 
-              -DNANOVDB_USE_OPENVDB=ON
-              -DNANOVDB_BUILD_TOOLS=ON
+            then: cmake .. %CMAKE_ARGS% %SHARED_CMAKE_ARGS% %OUTPUT_CMAKE_ARGS%
+            else: cmake .. $CMAKE_ARGS $SHARED_CMAKE_ARGS $OUTPUT_CMAKE_ARGS%
           - cmake --build . --target install --config Release
 
     tests:
