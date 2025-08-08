@@ -1,6 +1,6 @@
 context:
   version: "12.1.0"
-  nanovdb_version: 32.7.0 # NanoVDB.h
+  nanovdb_version: 32.8.0 # NanoVDB.h
   shared_cmake_args: >
     -Wno-dev
     -DOPENVDB_BUILD_CORE=OFF
