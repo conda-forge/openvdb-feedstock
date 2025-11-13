@@ -27,9 +27,6 @@ python:
 target_platform:
 - osx-arm64
 tbb_devel:
-- '2021'
-zip_keys:
-- - python
-  - channel_sources
+- '2022'
 zlib:
 - '1'
