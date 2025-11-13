@@ -18,7 +18,7 @@ source:
   sha256: ccd0ea1669a53c7c13087a08ac5a1351041c4cdd308f6d6f591074a106fcb565
 
 build:
-  number: 0
+  number: 1
   skip: match(python, "<=3.9")
 
 outputs:
