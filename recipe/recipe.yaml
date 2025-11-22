@@ -16,6 +16,8 @@ recipe:
 source:
   url: https://github.com/AcademySoftwareFoundation/openvdb/archive/refs/tags/v${{ version }}.tar.gz
   sha256: 4d6a91df5f347017496fe8d22c3dbb7c4b5d7289499d4eb4d53dd2c75bb454e1
+  patches:
+    - 2138.patch # https://github.com/AcademySoftwareFoundation/openvdb/pull/2138
 
 build:
   number: 0
