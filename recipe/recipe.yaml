@@ -182,6 +182,7 @@ outputs:
         - nanobind
         - python
         - tbb-devel
+        - tsl_robin_map
         - zlib
         - ${{ pin_subpackage('openvdb', upper_bound='x') }}
       run:
