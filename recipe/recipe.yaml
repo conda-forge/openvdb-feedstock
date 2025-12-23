@@ -1,6 +1,6 @@
 context:
-  version: "12.1.1"
-  nanovdb_version: 32.8.0 # NanoVDB.h
+  version: "13.0.0"
+  nanovdb_version: 32.9.0 # NanoVDB.h
   shared_cmake_args: >
     -Wno-dev
     -DOPENVDB_BUILD_CORE=OFF
@@ -15,11 +15,14 @@ recipe:
 
 source:
   url: https://github.com/AcademySoftwareFoundation/openvdb/archive/refs/tags/v${{ version }}.tar.gz
-  sha256: ccd0ea1669a53c7c13087a08ac5a1351041c4cdd308f6d6f591074a106fcb565
+  sha256: 4d6a91df5f347017496fe8d22c3dbb7c4b5d7289499d4eb4d53dd2c75bb454e1
+  patches:
+    - 2138.patch # https://github.com/AcademySoftwareFoundation/openvdb/pull/2138
+    - 2148.patch # https://github.com/AcademySoftwareFoundation/openvdb/pull/2148
 
 build:
-  number: 1
-  skip: match(python, "<=3.9")
+  number: 0
+  skip: match(python, "<3.11")
 
 outputs:
   - package:
@@ -180,6 +183,7 @@ outputs:
         - nanobind
         - python
         - tbb-devel
+        - tsl_robin_map
         - zlib
         - ${{ pin_subpackage('openvdb', upper_bound='x') }}
       run:
