@@ -232,6 +232,33 @@ outputs:
               - test -f ${PREFIX}/include/nanovdb/NanoVDB.h
 
   - package:
+      name: nanovdb-dev
+      version: ${{ nanovdb_version }}
+
+    build:
+      script:
+        content:
+          - if: win
+            then:
+              - robocopy nanovdb\nanovdb %LIBRARY_INC%\nanovdb *.h *.cuh /S
+              - if %ERRORLEVEL% LEQ 3 exit /B 0
+            else:
+              - |
+                find nanovdb/nanovdb \( -name "*.h" -o -name "*.cuh" \) | while read f; do
+                  dest="${PREFIX}/include/${f#nanovdb/}"
+                  mkdir -p "$(dirname "$dest")"
+                  cp "$f" "$dest"
+                done
+
+    tests:
+      - script:
+          - if: win
+            then:
+              - if not exist %LIBRARY_INC%\nanovdb\NanoVDB.h exit 1
+            else:
+              - test -f ${PREFIX}/include/nanovdb/NanoVDB.h
+
+  - package:
       name: nanovdb-tools
       version: ${{ nanovdb_version }}
 
