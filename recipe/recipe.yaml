@@ -240,8 +240,7 @@ outputs:
         content:
           - if: win
             then:
-              - robocopy nanovdb\nanovdb %LIBRARY_INC%\nanovdb *.h *.cuh /S
-              - if %ERRORLEVEL% LEQ 3 exit /B 0
+              - robocopy nanovdb\nanovdb %LIBRARY_INC%\nanovdb *.h *.cuh /S & if errorlevel 4 exit /B 1 & exit /B 0
             else:
               - |
                 find nanovdb/nanovdb \( -name "*.h" -o -name "*.cuh" \) | while read f; do
