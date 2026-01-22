@@ -21,7 +21,7 @@ source:
     - 2148.patch # https://github.com/AcademySoftwareFoundation/openvdb/pull/2148
 
 build:
-  number: 0
+  number: 1
   skip: match(python, "<3.11")
 
 outputs:
