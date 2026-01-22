@@ -237,6 +237,7 @@ outputs:
 
     build:
       noarch: generic
+      skip: not linux
       script:
         content:
           - |
