@@ -212,6 +212,7 @@ Current release info
 | Name | Downloads | Version | Platforms |
 | --- | --- | --- | --- |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-nanovdb-green.svg)](https://anaconda.org/conda-forge/nanovdb) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/nanovdb.svg)](https://anaconda.org/conda-forge/nanovdb) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/nanovdb.svg)](https://anaconda.org/conda-forge/nanovdb) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/nanovdb.svg)](https://anaconda.org/conda-forge/nanovdb) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-nanovdb--dev-green.svg)](https://anaconda.org/conda-forge/nanovdb-dev) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/nanovdb-dev.svg)](https://anaconda.org/conda-forge/nanovdb-dev) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/nanovdb-dev.svg)](https://anaconda.org/conda-forge/nanovdb-dev) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/nanovdb-dev.svg)](https://anaconda.org/conda-forge/nanovdb-dev) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-nanovdb--tools-green.svg)](https://anaconda.org/conda-forge/nanovdb-tools) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/nanovdb-tools.svg)](https://anaconda.org/conda-forge/nanovdb-tools) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/nanovdb-tools.svg)](https://anaconda.org/conda-forge/nanovdb-tools) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/nanovdb-tools.svg)](https://anaconda.org/conda-forge/nanovdb-tools) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-openvdb-green.svg)](https://anaconda.org/conda-forge/openvdb) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/openvdb.svg)](https://anaconda.org/conda-forge/openvdb) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/openvdb.svg)](https://anaconda.org/conda-forge/openvdb) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/openvdb.svg)](https://anaconda.org/conda-forge/openvdb) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-openvdb--tools-green.svg)](https://anaconda.org/conda-forge/openvdb-tools) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/openvdb-tools.svg)](https://anaconda.org/conda-forge/openvdb-tools) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/openvdb-tools.svg)](https://anaconda.org/conda-forge/openvdb-tools) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/openvdb-tools.svg)](https://anaconda.org/conda-forge/openvdb-tools) |
@@ -226,16 +227,16 @@ conda config --add channels conda-forge
 conda config --set channel_priority strict
 ```
 
-Once the `conda-forge` channel has been enabled, `nanovdb, nanovdb-tools, openvdb, openvdb-tools` can be installed with `conda`:
+Once the `conda-forge` channel has been enabled, `nanovdb, nanovdb-dev, nanovdb-tools, openvdb, openvdb-tools` can be installed with `conda`:
 
 ```
-conda install nanovdb nanovdb-tools openvdb openvdb-tools
+conda install nanovdb nanovdb-dev nanovdb-tools openvdb openvdb-tools
 ```
 
 or with `mamba`:
 
 ```
-mamba install nanovdb nanovdb-tools openvdb openvdb-tools
+mamba install nanovdb nanovdb-dev nanovdb-tools openvdb openvdb-tools
 ```
 
 It is possible to list all of the versions of `nanovdb` available on your platform with `conda`:
