@@ -237,19 +237,27 @@ outputs:
 
     build:
       noarch: generic
-      skip: not linux
       script:
         content:
-          - |
-            find nanovdb/nanovdb \( -name "*.h" -o -name "*.cuh" \) | while read f; do
-              dest="${PREFIX}/include/${f#nanovdb/}"
-              mkdir -p "$(dirname "$dest")"
-              cp "$f" "$dest"
-            done
+          - if: win
+            then:
+              - xcopy /s /i /y nanovdb\nanovdb\*.h "%LIBRARY_INC%\nanovdb\"
+              - xcopy /s /i /y nanovdb\nanovdb\*.cuh "%LIBRARY_INC%\nanovdb\"
+            else:
+              - |
+                find nanovdb/nanovdb \( -name "*.h" -o -name "*.cuh" \) | while read f; do
+                  dest="${PREFIX}/include/${f#nanovdb/}"
+                  mkdir -p "$(dirname "$dest")"
+                  cp "$f" "$dest"
+                done
 
     tests:
       - script:
-          - test -f ${PREFIX}/include/nanovdb/NanoVDB.h
+          - if: win
+            then:
+              - if exist %LIBRARY_INC%\nanovdb\NanoVDB.h (exit 0) else (exit 1)
+            else:
+              - test -f ${PREFIX}/include/nanovdb/NanoVDB.h
 
   - package:
       name: nanovdb-tools
