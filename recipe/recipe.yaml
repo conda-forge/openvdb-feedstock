@@ -255,7 +255,7 @@ outputs:
       - script:
           - if: win
             then:
-              - if exist %LIBRARY_INC%\nanovdb\NanoVDB.h (exit 0) else (exit 1)
+              - if not exist %LIBRARY_INC%\nanovdb\NanoVDB.h exit 1
             else:
               - test -f ${PREFIX}/include/nanovdb/NanoVDB.h
 
