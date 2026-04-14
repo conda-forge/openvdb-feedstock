@@ -21,7 +21,7 @@ source:
     - 2148.patch # https://github.com/AcademySoftwareFoundation/openvdb/pull/2148
 
 build:
-  number: 1
+  number: 2
   skip: match(python, "<3.11")
 
 outputs:
@@ -68,7 +68,7 @@ outputs:
             -DOPENVDB_BUILD_PYTHON_MODULE=ON
             -DUSE_NUMPY=ON
         content:
-          - mkdir -p build
+          - mkdir build
           - cd build
           - if: win
             then:
@@ -144,7 +144,7 @@ outputs:
             -DOPENVDB_BUILD_VDB_VIEW=ON
             -DOPENVDB_BUILD_VDB_TOOL=ON
         content:
-          - mkdir -p build
+          - mkdir build
           - cd build
           - if: win
             then:
@@ -201,7 +201,7 @@ outputs:
             -DNANOVDB_BUILD_PYTHON_MODULE=ON
             -DNANOVDB_USE_TBB=ON
         content:
-          - mkdir -p build
+          - mkdir build
           - cd build
           - if: win
             then:
@@ -237,19 +237,27 @@ outputs:
 
     build:
       noarch: generic
-      skip: not linux
       script:
         content:
-          - |
-            find nanovdb/nanovdb \( -name "*.h" -o -name "*.cuh" \) | while read f; do
-              dest="${PREFIX}/include/${f#nanovdb/}"
-              mkdir -p "$(dirname "$dest")"
-              cp "$f" "$dest"
-            done
+          - if: win
+            then:
+              - xcopy /s /i /y nanovdb\nanovdb\*.h "%LIBRARY_INC%\nanovdb\"
+              - xcopy /s /i /y nanovdb\nanovdb\*.cuh "%LIBRARY_INC%\nanovdb\"
+            else:
+              - |
+                find nanovdb/nanovdb \( -name "*.h" -o -name "*.cuh" \) | while read f; do
+                  dest="${PREFIX}/include/${f#nanovdb/}"
+                  mkdir -p "$(dirname "$dest")"
+                  cp "$f" "$dest"
+                done
 
     tests:
       - script:
-          - test -f ${PREFIX}/include/nanovdb/NanoVDB.h
+          - if: win
+            then:
+              - if not exist %LIBRARY_INC%\nanovdb\NanoVDB.h exit 1
+            else:
+              - test -f ${PREFIX}/include/nanovdb/NanoVDB.h
 
   - package:
       name: nanovdb-tools
@@ -277,7 +285,7 @@ outputs:
             -DNANOVDB_USE_OPENVDB=ON
             -DNANOVDB_BUILD_TOOLS=ON
         content:
-          - mkdir -p build
+          - mkdir build
           - cd build
           - if: win
             then:
