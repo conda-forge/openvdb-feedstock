@@ -68,7 +68,7 @@ outputs:
             -DOPENVDB_BUILD_PYTHON_MODULE=ON
             -DUSE_NUMPY=ON
         content:
-          - mkdir -p build
+          - mkdir build
           - cd build
           - if: win
             then:
@@ -144,7 +144,7 @@ outputs:
             -DOPENVDB_BUILD_VDB_VIEW=ON
             -DOPENVDB_BUILD_VDB_TOOL=ON
         content:
-          - mkdir -p build
+          - mkdir build
           - cd build
           - if: win
             then:
@@ -201,7 +201,7 @@ outputs:
             -DNANOVDB_BUILD_PYTHON_MODULE=ON
             -DNANOVDB_USE_TBB=ON
         content:
-          - mkdir -p build
+          - mkdir build
           - cd build
           - if: win
             then:
@@ -285,7 +285,7 @@ outputs:
             -DNANOVDB_USE_OPENVDB=ON
             -DNANOVDB_BUILD_TOOLS=ON
         content:
-          - mkdir -p build
+          - mkdir build
           - cd build
           - if: win
             then:
