@@ -23,6 +23,6 @@ python:
 target_platform:
 - linux-ppc64le
 tbb_devel:
-- '2022'
+- '2023'
 zlib:
 - '1'
