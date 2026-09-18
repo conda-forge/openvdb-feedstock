@@ -1,7 +1,7 @@
 context:
   version: "13.0.0"
   nanovdb_version: 32.9.0 # NanoVDB.h
-  shared_cmake_args: >
+  shared_cmake_args: >-
     -Wno-dev
     -DOPENVDB_BUILD_CORE=OFF
     -DOPENVDB_BUILD_BINARIES=OFF
@@ -21,7 +21,7 @@ source:
     - 2148.patch # https://github.com/AcademySoftwareFoundation/openvdb/pull/2148
 
 build:
-  number: 3
+  number: 4
   skip: match(python, "<3.11")
 
 outputs:
@@ -60,7 +60,7 @@ outputs:
       script:
         env:
           SHARED_CMAKE_ARGS: ${{ shared_cmake_args }}
-          OUTPUT_CMAKE_ARGS: >
+          OUTPUT_CMAKE_ARGS: >-
             -DOPENVDB_BUILD_CORE=ON
             -DOPENVDB_CORE_SHARED=ON
             -DOPENVDB_CORE_STATIC=OFF
@@ -136,7 +136,7 @@ outputs:
       script:
         env:
           SHARED_CMAKE_ARGS: ${{ shared_cmake_args }}
-          OUTPUT_CMAKE_ARGS: >
+          OUTPUT_CMAKE_ARGS: >-
             -DOPENVDB_BUILD_BINARIES=ON
             -DOPENVDB_BUILD_VDB_PRINT=ON
             -DOPENVDB_BUILD_VDB_LOD=ON
@@ -195,7 +195,7 @@ outputs:
       script:
         env:
           SHARED_CMAKE_ARGS: ${{ shared_cmake_args }}
-          OUTPUT_CMAKE_ARGS: >
+          OUTPUT_CMAKE_ARGS: >-
             -DOPENVDB_BUILD_NANOVDB=ON
             -DNANOVDB_USE_OPENVDB=ON
             -DNANOVDB_BUILD_PYTHON_MODULE=ON
@@ -235,29 +235,43 @@ outputs:
       name: nanovdb-dev
       version: ${{ nanovdb_version }}
 
+    requirements:
+      build:
+        - ${{ compiler('cxx') }}
+        - ${{ stdlib("c") }}
+        - cmake
+        - ${{ "make" if not win }}
+
     build:
-      noarch: generic
       script:
+        env:
+          SHARED_CMAKE_ARGS: ${{ shared_cmake_args }}
+          OUTPUT_CMAKE_ARGS: >-
+            -DOPENVDB_BUILD_NANOVDB=ON
+            -DNANOVDB_USE_OPENVDB=OFF
+            -DNANOVDB_USE_TBB=OFF
+            -DNANOVDB_USE_BLOSC=OFF
+            -DNANOVDB_USE_ZLIB=OFF
+            -DNANOVDB_BUILD_PYTHON_MODULE=OFF
         content:
+          - mkdir build
+          - cd build
           - if: win
             then:
-              - xcopy /s /i /y nanovdb\nanovdb\*.h "%LIBRARY_INC%\nanovdb\"
-              - xcopy /s /i /y nanovdb\nanovdb\*.cuh "%LIBRARY_INC%\nanovdb\"
+              - cmake .. %CMAKE_ARGS% %SHARED_CMAKE_ARGS% %OUTPUT_CMAKE_ARGS%
             else:
-              - |
-                find nanovdb/nanovdb \( -name "*.h" -o -name "*.cuh" \) | while read f; do
-                  dest="${PREFIX}/include/${f#nanovdb/}"
-                  mkdir -p "$(dirname "$dest")"
-                  cp "$f" "$dest"
-                done
+              - cmake .. $CMAKE_ARGS $SHARED_CMAKE_ARGS $OUTPUT_CMAKE_ARGS
+          - cmake --build . --target install --config Release
 
     tests:
       - script:
           - if: win
             then:
               - if not exist %LIBRARY_INC%\nanovdb\NanoVDB.h exit 1
+              - if not exist %LIBRARY_INC%\nanovdb\cuda\GridHandle.cuh exit 1
             else:
               - test -f ${PREFIX}/include/nanovdb/NanoVDB.h
+              - test -f ${PREFIX}/include/nanovdb/cuda/GridHandle.cuh
 
   - package:
       name: nanovdb-tools
@@ -280,7 +294,7 @@ outputs:
       script:
         env:
           SHARED_CMAKE_ARGS: ${{ shared_cmake_args }}
-          OUTPUT_CMAKE_ARGS: >
+          OUTPUT_CMAKE_ARGS: >-
             -DOPENVDB_BUILD_NANOVDB=ON
             -DNANOVDB_USE_OPENVDB=ON
             -DNANOVDB_BUILD_TOOLS=ON
