@@ -75,7 +75,7 @@ outputs:
               - set CMAKE_BUILD_PARALLEL_LEVEL=%CPU_COUNT%
               - >
                 cmake .. %CMAKE_ARGS% %SHARED_CMAKE_ARGS% %OUTPUT_CMAKE_ARGS%
-                -DVDB_PYTHON_INSTALL_DIRECTORY="%PREFIX%/Lib/site-packages"
+                -DVDB_PYTHON_INSTALL_DIRECTORY="%SP_DIR%"
                 -DPython_EXECUTABLE:PATH=%PYTHON%
                 -Dnanobind_DIR=%SP_DIR%/nanobind/cmake
             else:
@@ -208,7 +208,7 @@ outputs:
               - set CMAKE_BUILD_PARALLEL_LEVEL=%CPU_COUNT%
               - >
                 cmake .. %CMAKE_ARGS% %SHARED_CMAKE_ARGS% %OUTPUT_CMAKE_ARGS%
-                -DVDB_PYTHON_INSTALL_DIRECTORY="%PREFIX%/Lib/site-packages"
+                -DVDB_PYTHON_INSTALL_DIRECTORY="%SP_DIR%"
                 -Dnanobind_DIR=%SP_DIR%/nanobind/cmake
                 -DPython_EXECUTABLE:PATH=%PYTHON%
             else:
