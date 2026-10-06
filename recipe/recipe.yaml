@@ -1,5 +1,5 @@
 context:
-  version: "13.0.0"
+  version: "13.1.0"
   nanovdb_version: 32.9.0 # NanoVDB.h
   shared_cmake_args: >-
     -Wno-dev
@@ -15,13 +15,13 @@ recipe:
 
 source:
   url: https://github.com/AcademySoftwareFoundation/openvdb/archive/refs/tags/v${{ version }}.tar.gz
-  sha256: 4d6a91df5f347017496fe8d22c3dbb7c4b5d7289499d4eb4d53dd2c75bb454e1
+  sha256: 21659ef2330a06805519dd8d4369375f181a0dfee205b0180da69b4edd3329ae
   patches:
     - 2138.patch # https://github.com/AcademySoftwareFoundation/openvdb/pull/2138
     - 2148.patch # https://github.com/AcademySoftwareFoundation/openvdb/pull/2148
 
 build:
-  number: 4
+  number: 0
   skip: match(python, "<3.11")
 
 outputs:
