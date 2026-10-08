@@ -19,7 +19,7 @@ source:
   patches: []
 
 build:
-  number: 0
+  number: 1
   skip: match(python, "<3.11")
 
 outputs:
