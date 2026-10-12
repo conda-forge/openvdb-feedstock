@@ -42,6 +42,7 @@ outputs:
       host:
         - blosc
         - libboost-devel
+        - libpython
         - nanobind
         - numpy >=1.23.0
         - python
