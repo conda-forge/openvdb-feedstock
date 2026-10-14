@@ -287,6 +287,3 @@ Feedstock Maintainers
 * [@tetov](https://github.com/tetov/)
 * [@versatran01](https://github.com/versatran01/)
 
-
-<!-- dummy commit to enable rerendering -->
-
