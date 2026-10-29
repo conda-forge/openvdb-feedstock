@@ -1,5 +1,5 @@
 context:
-  version: "13.2.0"
+  version: "14.0.0"
   nanovdb_version: "32.10.0" # NanoVDB.h
   shared_cmake_args: >-
     -Wno-dev
@@ -15,7 +15,7 @@ recipe:
 
 source:
   url: https://github.com/AcademySoftwareFoundation/openvdb/archive/refs/tags/v${{ version }}.tar.gz
-  sha256: 505c11d4eb1488518bd4d9a3656b27d547ee1a8b12f601e82407f1ae7dab5d31
+  sha256: 2c38592a42a9dc1f3e9749418cc9d286d88ed912232dafee954ce5156174e5b0
   patches: []
 
 build:
