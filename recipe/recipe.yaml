@@ -40,13 +40,11 @@ outputs:
             - numpy
             - nanobind
       host:
-        - blosc
         - libpython
         - nanobind
         - numpy >=1.23.0
         - python
         - tbb-devel
-        - zlib
         - ${{ "glew" if win }}
       run:
         - python
@@ -118,10 +116,8 @@ outputs:
         - cmake
         - ${{ "make" if not win }}
       host:
-        - blosc
         - glfw
         - tbb-devel
-        - zlib
         - if: linux
           then:
             - libgl-devel
@@ -180,7 +176,6 @@ outputs:
         - python
         - tbb-devel
         - tsl_robin_map
-        - zlib
         - ${{ pin_subpackage('openvdb', upper_bound='x') }}
       run:
         - python
@@ -281,7 +276,6 @@ outputs:
         - ${{ "make" if not win }}
       host:
         - tbb-devel
-        - zlib
         - ${{ pin_subpackage('openvdb', upper_bound='x') }}
         - ${{ pin_subpackage('nanovdb', upper_bound='x.x') }}
 
