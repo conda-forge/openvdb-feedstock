@@ -1,6 +1,6 @@
 context:
   version: "14.0.0"
-  nanovdb_version: "32.10.0" # NanoVDB.h
+  nanovdb_version: "32.11.0" # NanoVDB.h
   shared_cmake_args: >-
     -Wno-dev
     -DOPENVDB_BUILD_CORE=OFF
@@ -40,13 +40,13 @@ outputs:
             - numpy
             - nanobind
       host:
-        - blosc
         - libpython
         - nanobind
         - numpy >=1.23.0
         - python
         - tbb-devel
         - zlib
+        - zstd
         - ${{ "glew" if win }}
       run:
         - python
@@ -118,7 +118,6 @@ outputs:
         - cmake
         - ${{ "make" if not win }}
       host:
-        - blosc
         - glfw
         - tbb-devel
         - zlib
