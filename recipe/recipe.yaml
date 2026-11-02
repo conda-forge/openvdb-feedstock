@@ -52,7 +52,7 @@ outputs:
         - python
         - numpy
       run_exports:
-        - ${{ pin_subpackage('openvdb', upper_bound='x') }}
+        - ${{ pin_subpackage('openvdb', upper_bound='x.x') }}
 
     build:
       script:
