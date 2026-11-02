@@ -24,5 +24,3 @@ target_platform:
 - linux-aarch64
 tbb_devel:
 - '2023'
-zlib:
-- '1'
